@@ -1,0 +1,139 @@
+<div id="dashboard-carts" class="w-full p-2">
+  <!-- ALL -->
+  {% if content == "all" %}
+  <h1 class="text-3xl md:text-5xl lg:text-6xl">Carts</h1>
+  
+  <div id="dashboard-cart-filter" class="accordion mt-5">
+    <p class="accordion-btn text-neutral-700 dark:text-grey flex items-start md:items-center cursor-pointer md:text-lg w-fit"> <svg viewBox="0 0 50 50" class="w-[20px] fill-neutral-800 dark:fill-neutral-200"><path d="M22 40q-.85 0-1.425-.575Q20 38.85 20 38V26L8.05 10.75q-.7-.85-.2-1.8Q8.35 8 9.4 8h29.2q1.05 0 1.55.95t-.2 1.8L28 26v12q0 .85-.575 1.425Q26.85 40 26 40Zm2-13.8L36 11H12Zm0 0Z"/></svg>
+    Filter</p>
+    <div class="accordion-content {% if request.GET.user or request.GET.sort %}active{% endif %}">
+      <form method="get" action="/manager/carts/" class="form-filter flex flex-col md:flex-row md:justify-evenly md:items-center flex-wrap p-3 border border-neutral-300 text-sm">
+        {{ cartfilter.form.as_p }}
+        <div>
+        <button type="submit" class="text-sm bg-neutral-600 rounded-md text-grey border border-neutral-500 p-1 w-fit mt-2 md:mt-0">Search</button>
+        <a href="/manager/carts/" class="mt-2">Reset</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <p class="text-neutral-400 mt-8 text-sm">{{ carts.count }} cart</p>
+  <div id="dashboard-carts-container"
+    class="h-[75vh] border-y border-neutral-400 overflow-y-scroll overflow-x-scroll w-full"
+  >
+    <table
+      class="border-separate w-full table-auto text-center border-spacing-x-2 border-spacing-y-3 relative"
+    >
+      <tr class="text-neutral-500 font-semibold text-sm mb-5 sticky top-0 bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-200"
+      >
+      <th class="border-r border-neutral-300 px-3">Action</th>
+        <th class="border-r border-neutral-300 px-3">User</th>
+        <th class="border-r border-neutral-300 px-3">Total</th>
+        <th class="border-r border-neutral-300 px-3">Qty</th>
+        <th class="border-r border-neutral-300 px-3">Created At</th>
+      </tr>
+      {% for c in carts %}
+      <tr class="h-[10vh] text-[12px] md:text-[14px]">
+        <td>
+          <a href="/manager/carts/{{ c.cart_token }}"
+            ><span
+              class="material-symbols-rounded text-orange text-[18px] md:text-[22px]"
+            >
+              visibility
+            </span></a
+          >
+        </td>
+        <td class="font-semibold text-neutral-600 dark:text-neutral-200">{{ c.user.username }}</td>
+        <td class="prices">{{ c.total }}</td>
+        <td class="text-neutral-500">{{c.menu_count}}</td>
+        <td class="text-neutral-500">{{c.created_at}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  {% elif content == "detail" %}
+
+  <!-- DETAIL -->
+  <div id="dashboard-carts-detail" class="p-3">
+    <div
+      id="dashboard-carts-detail-header"
+      class="border-b-4 border-neutral-300 border-dashed pb-4"
+    >
+      <a
+        onClick="javascript:history.go(-1);"
+        class="float-right py-5 md:text-xl cursor-pointer"
+        >Back</a
+      >
+      <h1 class="text-xl md:text-2xl lg:text-3xl">Cart Detail</h1>
+      <h3 class="font-semibold text-neutral-700 dark:text-neutral-300 text-md mt-3">
+        {{ cart.cart_token }}
+      </h3>
+    </div>
+    <div id="dashboard-carts-detail-container" class="mt-10 clear-both">
+      <div id="detail-cart">
+      <h3 class="font-semibold text-neutral-700 dark:text-neutral-300 mb-4">Cart Detail</h3>
+      <table>
+        <tr>
+          <td>Token :</td>
+          <td class="text-neutral-700 dark:text-grey">{{ cart.cart_token }}</td>
+        </tr>
+        <tr>
+          <td>User :</td>
+          <td class="text-neutral-700 dark:text-grey"><a href="/manager/users/{{ cart.user.username }}" class="underline">{{ cart.user.username }}</td>
+        </tr>
+        <tr>
+          <td>Qty :</td>
+          <td class="text-neutral-700 dark:text-grey">{{ cartmenu.count }}</td>
+        </tr>
+        <tr>
+          <td>Total :</td>
+          <td class="prices text-neutral-700 dark:text-grey">{{ cart.total }}</td>
+        </tr>
+        <tr>
+          <td class="pr-3">Created at :</td>
+          <td class="text-neutral-700 dark:text-grey">{{ cart.created_at }}</td>
+        </tr>
+      </table>
+    </div>
+    <div id="menu-detail">
+      <h3 class="font-semibold text-neutral-700 mt-10 mb-4 dark:text-neutral-200">Detail Menu</h3>
+      <table
+        class="w-full md:w-10/12 table-auto lg:w-9/12 text-center border-separate border-spacing-x-3 border-spacing-y-2"
+      >
+        <tr class="text-neutral-500 text-sm">
+          <th class="border-r border-neutral-300 px-3">Menu</th>
+          <th class="border-r border-neutral-300 px-3">Image</th>
+          <th class="border-r border-neutral-300 px-3">Price</th>
+          <th class="border-r border-neutral-300 px-3">Qty</th>
+          <th class="border-r border-neutral-300 px-3">Total Menu</th>
+        </tr>
+        {% for cm in cartmenu %}
+        <tr class="h-[8vh] md:h-[11vh] lg:h-[13vh] text-[12px]">
+          <td>{{ cm.menu.name }}</td>
+          <td>
+            <img
+              src="{{ cm.menu.image }}"
+              class="h-[8vh] md:h-[11vh] lg:h-[13vh] w-full object-contain"
+            />
+          </td>
+          <td class="prices text-neutral-800 dark:text-grey">{{ cm.menu.price }}</td>
+          <td class="text-neutral-800 dark:text-grey">x{{ cm.quantity }}</td>
+          <td class="prices">{{ cm.total }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <!-- DELETE CART -->
+    {% if request.user.is_superuser %}
+    <form id="form-cart-delete" action="/cart/deleteall/" method="post" class="mt-10">
+      {% csrf_token %}
+      <input type="hidden" name="cart_token" value="{{ cart.cart_token }}" />
+      <button type="submit" id="delete-cart-btn" class="text-red-600 border border-red-600 p-2 rounded-md">Delete Cart</button>
+    </form>
+    {% endif %}
+
+  </div>
+
+  {% endif %}
+</div>

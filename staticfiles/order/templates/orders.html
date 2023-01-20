@@ -1,0 +1,49 @@
+{% if orders %}{% for o in orders %}
+    <div
+      class=" {% if o.status.status == "ontheway" or o.status.status == "received" %}h-[20vh] {% else %} h-[15vh] {% endif %}mt-10  md:h-[18vh] lg:h-[22vh] bg-white dark:bg-neutral-800 dark:border dark:border-grey grid grid-cols-2 sm:w-11/12 mx-auto md:w-9/12 lg:w-7/12 grid-rows-1 gap-2 p-2 shadow-sm rounded-md"
+    >
+      <div
+        id="order-menu-container"
+        class="h-full w-full bg-grey"
+      >
+      <img src="{{ o.menu_image }}" class="object-cover h-full w-full" />
+      </div>
+      <div id="order-detail-container"
+        class="p-1 flex flex-col justify-between text-[10px] md:text-[15px]"
+      >
+        <p class="self-end {% if o.status.code == 202 %} text-teal-600 {% elif o.status.code == 303 %}text-green-600 {% else %}text-red-600{% endif %}">{{ o.status.text }}</p>
+        <p>x{{ o.menucount }} menu</p>
+        <p class="text-[12px]">Total : <span class="prices text-neutral-700 dark:text-neutral-300">{{ o.total }}</span></p>
+        <a href="/order/{{ o.order_token }}" class="text-orange"
+          >See detail...</a
+        >
+        {% if o.status.status == "ontheway" or o.status.status == "received" %}
+        <form action="/order/order-received/" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="order-token" value="{{ o.order_token }}" />
+          <button type="submit" class="text-sm bg-white dark:bg-brown py-1 rounded-md w-full disabled:opacity-50 transition ease-in-out duration-300 hover:bg-brown hover:text-grey" {% if o.status.code == 101 %}disabled{% endif %} >
+            Received
+          </button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+{% endfor %}
+{% else %}
+
+<div id="orders-empty" class="h-[55vh] flex flex-col justify-center items-center text-neutral-400 dark:text-neutral-600 text-center">
+
+    {% if request.GET.status == "received" %}
+      <svg viewBox="0 0 512 512" class="h-1/2 w-1/2 mb-3 fill-neutral-300 dark:fill-neutral-700"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+      <p>You don't have any received orders now</p>
+      {% elif request.GET.status == "finished" %}
+      <svg  viewBox="0 0 512 512" class="h-1/2 w-1/2 mb-3 fill-neutral-300 dark:fill-neutral-700"><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+      <p>You don't have any orders</p>
+      {% elif request.GET.status == "canceled" %}
+      <svg viewBox="0 0 512 512" class="h-1/2 w-1/2 mb-3 fill-neutral-300 dark:fill-neutral-700"><path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM512 256c0 141.4-114.6 256-256 256S0 397.4 0 256S114.6 0 256 0S512 114.6 512 256z"/></svg>
+      <p>You don't have any canceled orders</p>
+
+    {% endif %}
+</div>
+
+{% endif %}

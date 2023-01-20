@@ -1,0 +1,27 @@
+<div id="account" class="h-[70vh]">
+  <div id="account-header" class="flex justify-between">
+    <h2 class="text-2xl font-semibold md:text-4xl">Account</h2>
+    <a href="/users/settings/account/edit/">Edit</a>
+  </div>
+  <div
+    id="account-container"
+    class="mt-10 grid grid-rows-1 md:grid-cols-2 grid-rows-auto gap-5 text-sm md:w-11/12 mx-auto"
+  >
+    <div id="account-username" class="border-b border-neutral-300 py-3">
+      <p class="text-neutral-400 text-[12px]">Username :</p>
+      <p>{{ request.user.username }}</p>
+    </div>
+    <div id="account-fullname" class="border-b border-neutral-300 py-3">
+      <p class="text-neutral-400 text-[12px]">Fullname :</p>
+      <p>{{ request.user.fullname }}</p>
+    </div>
+    <div id="account-phone_number" class="border-b border-neutral-300 py-3">
+      <p class="text-neutral-400 text-[12px]">Email :</p>
+      <p>{{ request.user.email }}</p>
+    </div>
+    <div id="account-phone_number" class="border-b border-neutral-300 py-3">
+      <p class="text-neutral-400 text-[12px]">Phone Number :</p>
+      <p>{{ request.user.phone_number }}</p>
+    </div>
+  </div>
+</div>

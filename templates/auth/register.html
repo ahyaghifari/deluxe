@@ -1,0 +1,50 @@
+{% extends 'base-form.html' %} {% block content %}
+
+<div
+  id="register"
+  class="auth-pages p-3 pt-28 flex justify-center items-center"
+>
+  <div
+    id="register-container"
+    class="flex flex-col bg-neutral-100 dark:bg-neutral-800 border border-grey shadow-md px-8 py-4 rounded-md w-full md:w-8/12 lg:w-6/12 relative"
+  >
+    <a
+      onClick="javascript:history.go(-1);"
+      class="absolute top-2 right-2 text-[12px] md:text-[14px] lg:text-sm cursor-pointer"
+      >Back</a
+    >
+    <h3 class="font-semibold text-3xl self-center dark:text-orange">
+      Register
+    </h3>
+
+    {% if form.errors %}
+    <div
+      id="auth-messages"
+      class="text-[12px] md:text-[15px] mt-5 bg-red-600 p-1 text-grey mb-2 text-center"
+    >
+      <p>{{ form.non_field_errors }}</p>
+    </div>
+    {% endif %}
+
+    <form
+      action="/users/register/"
+      method="post"
+      class="mt-8 form-auth w-11/12 mx-auto"
+    >
+      {% csrf_token %} {{ form.as_div }}
+
+      <button
+        type="submit"
+        class="bg-brown text-grey px-5 py-1 mt-5 rounded-md w-fit mx-auto md:text-lg"
+      >
+        Register
+      </button>
+    </form>
+    <p class="text-[12px] mt-5 self-end">
+      Already Have Account ?
+      <a href="/users/login" class="underline">Login</a>
+    </p>
+  </div>
+</div>
+
+{% endblock content %}

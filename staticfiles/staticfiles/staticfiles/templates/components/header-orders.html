@@ -1,0 +1,44 @@
+<header
+  class="bg-grey p-1 lg:px-5 shadow-sm flex justify-between items-center dark:bg-brown"
+>
+  <a href="/" class="font-monte text-xl">Deluxe</a>
+
+  <nav
+    class="fixed lg:static w-full left-0 top-0 h-screen bg-grey flex items-end justify-center flex-col p-5 font-monte text-6xl lg:h-fit lg:text-lg lg:flex-row lg:w-1/2 lg:p-2 lg:justify-around xl:w-5/12 dark:bg-brown"
+  >
+    <span
+      class="material-symbols-rounded text-3xl cursor-pointer fixed top-2 right-2 hover:text-orange menu-toggle lg:hidden"
+    >
+      close
+    </span>
+    <a href="/" class="my-3 lg:my-0 hover:font-semibold">Home</a>
+    <a href="/menu" class="my-3 lg:my-0 hover:font-semibold">Menu</a>
+    <a href="/news" class="my-3 lg:my-0 hover:font-semibold">News</a>
+  </nav>
+
+  <div class="w-3/12 md:w-2/12 lg:w-1/12 flex justify-around items-center">
+    <a href="/cart" class="relative group">
+      <span
+        class="material-symbols-rounded text-lg cursor-pointer group-hover:text-orange"
+      >
+        shopping_cart
+      </span>
+      <p
+        id="cart-count"
+        class="bg-brown w-[15px] h-[15px] text-center text-[8px] text-grey absolute top-0 right-0 p-1 rounded-full -translate-y-1 translate-x-2 group-hover:bg-orange"
+      ></p>
+    </a>
+    <a href="/users">
+      <span
+        class="material-symbols-rounded text-lg cursor-pointer hover:text-orange"
+      >
+        account_circle
+      </span>
+    </a>
+    <span
+      class="material-symbols-rounded text-lg cursor-pointer hover:text-orange menu-toggle lg:hidden"
+    >
+      menu
+    </span>
+  </div>
+</header>

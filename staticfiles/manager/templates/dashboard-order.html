@@ -1,0 +1,171 @@
+<div id="dashboard-orders" class="w-full p-2">
+  {% if content == "all" %}
+  <h1 class="text-3xl md:text-5xl">Orders</h1>
+
+   <div id="dashboard-order-filter" class="accordion mt-5">
+    <p class="accordion-btn text-neutral-700 dark:text-grey flex items-center cursor-pointer md:text-lg w-fit"><svg viewBox="0 0 50 50" class="w-[20px] fill-neutral-800 dark:fill-neutral-200"><path d="M22 40q-.85 0-1.425-.575Q20 38.85 20 38V26L8.05 10.75q-.7-.85-.2-1.8Q8.35 8 9.4 8h29.2q1.05 0 1.55.95t-.2 1.8L28 26v12q0 .85-.575 1.425Q26.85 40 26 40Zm2-13.8L36 11H12Zm0 0Z"/></svg>Filter</p>
+    <div class="accordion-content {% if request.GET.status or request.GET.user or request.GET.sort %}active{% endif %}">
+      <form method="get" action="/manager/orders/" class="form-filter flex flex-col md:flex-row md:justify-evenly md:items-center p-3 border border-neutral-300 text-sm">
+        {{ ordersfilter.form.as_p }}
+        <div>
+        <button type="submit" class="text-sm bg-neutral-600 rounded-md text-grey border border-neutral-500 p-1 w-fit mt-2 md:mt-0">Search</button>
+        <a href="/manager/orders/" class="mt-2">Reset</a>
+        </div>
+      </form>
+      </form>
+    </div>
+  </div>
+
+  <p class="text-sm text-neutral-400 mt-8">{{ orders.count }} orders</p>
+  <div id="dashboard-orders-container"
+    class="h-[75vh] border-y border-neutral-400 overflow-y-scroll overflow-x-scroll w-full relative"
+  >
+    <table
+      class="border-separate w-full table-auto text-center border-spacing-x-3 border-spacing-y-3"
+    >
+      <tr class="text-neutral-500 font-semibold text-[12px] mb-5 sticky top-0">
+        <th class="border-r border-neutral-300 px-3">Action</th>
+        <th class="border-r border-neutral-300 px-3">User</th>
+        <th class="border-r border-neutral-300 px-3">Status</th>
+        <th class="border-r border-neutral-300 px-3">Total</th>
+        <th class="border-r border-neutral-300 px-3">Payment</th>
+        <th class="border-r border-neutral-300 px-3">Created At</th>
+      </tr>
+      {% for o in orders %}
+      <tr class="h-[10vh] text-[12px] md:text-[14px]">
+        <td class="mx-auto flex justify-center py-6">
+          <a href="/manager/orders/{{ o.order_token }}"
+            ><svg viewBox="0 0 576 512" class="fill-orange w-[15px]"><path d="M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z"/></svg></a
+          >
+        </td>
+        <td class="">{{ o.user.username }}</td>
+        <td class="font-semibold">{{ o.status }}</td>
+        <td class="prices">{{ o.total }}</td>
+        <td class="text-neutral-500">{{ o.payment_name }}</td>
+        <td class="text-neutral-500">{{o.created_at}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  {% elif content == "detail" %}
+  <div id="dashboard-orders-detail" class="p-3 overflow-x-hidden">
+    <div
+      id="dashboard-orders-detail-header"
+      class="border-b-4 border-neutral-300 border-dashed pb-4"
+    >
+      <h1 class="text-xl md:text-2xl lg:text-3xl">Order Detail</h1>
+      <h3 class="font-semibold text-neutral-700 dark:text-neutral-300 text-md mt-5">
+        {{ order.order_token }}
+      </h3>
+      <h3 class"text-neutral-700">Status : <span class="text-brown dark:text-orange"> {{ order.status }}</span></h3>
+      {% if request.user.is_superuser %}
+      {% if order.status.status != "finished" and order.status.status != "canceled" %}
+      <div id="order-change-status" class="text-sm mt-5">
+          <form method="post" action="/order/change-status/" class="flex flex-col">
+            {% csrf_token %}
+            {{ changestatusform }}
+            <input type="hidden" name="token" value="{{ order.order_token }}"> 
+            <input type="hidden" name="next" value="{{ request.path }}" />
+          <button type="submit" class="mt-5 border border-brown rounded-md p-1 w-fit ">Update</button>
+          </form>
+      </div>
+        {% endif %}
+      {% endif %}
+    </div>
+    <div id="dashboard-orders-detail-container" class="mt-10 clear-both text-[12px] md:text-sm">
+      <div id="detail-order">
+        <h3 class="font-semibold text-neutral-700 dark:text-neutral-300 mb-4 text-lg md:text-xl">Order Detail</h3>
+        <table>
+          <tr>
+            <td>Token :</td>
+            <td class="text-neutral-700 dark:text-grey">{{ order.order_token }}</td>
+          </tr>
+          <tr>
+            <td>User :</td>
+            <td class="text-neutral-700 dark:text-grey"><a href="/manager/users/{{ order.user.username }}" class="underline">{{ order.user.username }}</td>
+          </tr>
+          <tr>
+            <td>Status :</td>
+            <td class="text-neutral-700 dark:text-grey">{{ order.status }}</td>
+          </tr>
+          <tr>
+            <td>Qty :</td>
+            <td class="text-neutral-700 dark:text-grey">{{ menu.count }}</td>
+          </tr>
+          <tr>
+            <td>Total :</td>
+            <td class="prices text-neutral-700 dark:text-grey">{{ order.total }}</td>
+          </tr>
+          <tr>
+            <td class="pr-3">Created at :</td>
+            <td class="text-neutral-700 dark:text-grey">{{ order.created_at }}</td>
+          </tr>
+        </table>
+      </div>
+      <div id="detail-receiver" class="mt-12">
+         <h3 class="font-semibold text-neutral-700 dark:text-neutral-300 mb-4 text-lg md:text-xl">Receiver Detail </h3>
+         <table>
+          <tr>
+            <td>Name :</td>
+            <td class="text-neutral-700 dark:text-grey">{{ receiver.name }}</td>
+          </tr>
+          <tr>
+            <td>Phone Number :</td>
+            <td class="text-neutral-700 dark:text-grey">{{ receiver.phone_number }}</td>
+          </tr>
+          <tr>
+            <td>Address :</td>
+            <td class="text-neutral-700 dark:text-grey">{{ receiver.address }}</td>
+          </tr>
+          <tr>
+            <td class="pr-3">City :</td>
+            <td class="text-neutral-700 dark:text-grey">{{ receiver.city }}</td>
+          </tr>
+        </table>
+      </div>
+      <div id="detail-payment" class="mt-10">
+        <h3 class="font-semibold text-neutral-700 dark:text-neutral-300 mb-4 text-lg md:text-xl">Payment Detail</h3>
+         <table>
+           <tr>
+             <td>Method :</td>
+             <td class="text-neutral-700 dark:text-grey">{{ payment.payment_method }}</td>
+           </tr>
+          <tr>
+            <td>Token :</td>
+            <td class="text-neutral-700 dark:text-grey">{{ payment.payment_token }}</td>
+          </tr>
+        </table>
+      </div> 
+      <div id="detail-menu" class="mt-10 overflow-x-scroll">
+        <h3 class="font-semibold text-neutral-700 dark:text-neutral-300 mt-5 mb-4 text-lg md:text-xl">Detail Menu</h3>
+        <table
+          class="w-full md:w-10/12 table-auto lg:w-9/12 text-center border-separate border-spacing-x-3 border-spacing-y-2"
+        >
+          <tr class="text-neutral-500 text-sm">
+            <th class="border-r border-neutral-300 px-3">Menu</th>
+            <th class="border-r border-neutral-300 px-3">Image</th>
+            <th class="border-r border-neutral-300 px-3">Price</th>
+            <th class="border-r border-neutral-300 px-3">Qty</th>
+            <th class="border-r border-neutral-300 px-3">Total Menu</th>
+          </tr>
+          {% for m in menu %}
+          <tr class="h-[8vh] md:h-[11vh] lg:h-[13vh] text-[12px]">
+            <td>{{ m.menu.name }}</td>
+            <td>
+              <img
+                src="{{ m.menu.image }}"
+                class="h-[8vh] md:h-[11vh] lg:h-[13vh] w-full object-contain"
+              />
+            </td>
+            <td class="prices text-neutral-800 dark:text-grey">{{ m.menu.price }}</td>
+            <td class="text-neutral-800 dark:text-grey">x{{ m.quantity }}</td>
+            <td class="prices">{{ m.total }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>

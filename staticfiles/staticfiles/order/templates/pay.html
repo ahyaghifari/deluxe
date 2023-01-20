@@ -1,0 +1,29 @@
+{% extends 'base-users.html' %} {% block content %}
+
+<div id="pay" class="h-screen bg-brown flex justify-center items-center">
+  <div
+    id="pay-container"
+    class="bg-white p-2 flex flex-col justify-center w-7/12 sm:w-6/12 md:w-5/12 items-center rounded-md shadow-md"
+  >
+    <p class="mb-8 text-brown">{{ name }}</p>
+    <h3
+      class="text-xl p-3 border border-neutral-300 text-neutral-800 rounded-md bg-neutral-100"
+    >
+      {{ payment.payment_token }}
+    </h3>
+    <form action="/order/pay/" method="post" class="mt-10">
+      {% csrf_token %}
+      <input type="hidden" value="{{ order.order_token }}" name="order" />
+      <button type="submit" class="bg-brown text-white px-8 py-1 rounded-md">
+        Pay
+      </button>
+    </form>
+
+    <div class="">
+      <p class="mt-5 text-[11px] text-left text-neutral-500 self-end">
+        The order gonna <span class="text-orange"> on process </span> if you pay
+      or <a href="/order/?status=notpaid" class="underline text-brown">Back</a></p>
+    </div>
+  </div>
+</div>
+{% endblock content %}

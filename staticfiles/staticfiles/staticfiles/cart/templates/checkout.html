@@ -1,0 +1,144 @@
+{% extends 'base.html' %}{% block content %}
+
+<div id="checkout" class="pt-20 p-3">
+  <h1 class="text-3xl font-semibold mb-2">Checkout</h1>
+  <div id="checkout-container" class="p-3 text-neutral-800">
+    <form id="checkout-form" action="/order/create/" method="post" class="flex flex-col">
+      {% csrf_token %}
+      <div id="receiver-address"
+        class="flex flex-col md:flex-row md:justify-around bg-white rounded-md shadow-md p-3 md:flex-wrap dark:bg-tree"
+      >
+        <h3 class="basis-full mb-3 md:text-xl font-semibold dark:text-neutral-200">Receiver & Address</h3>
+        <p class="font-semibold text-[12px] sm:text-sm lg:text-lg dark:text-skin">
+          <span id="text-name" class=""> {{ user.fullname }}</span
+          >(<span id="text-phone_number">{{ user.phone_number }}</span>)
+        </p>
+        <p class="text-[11px] break-all text-neutral-500 whitespace-normal sm:text-sm dark:text-skin" id="text-address">
+          {{ user.address }}</p>
+        <div
+          id="receiver-address-form"
+          class="checkout-accordion-form md:basis-full text-[10px] md:text-[12px] grid grid-cols-2 md:place-content-center"
+        >
+          <div>
+            <label class="dark:text-neutral-200">Name: <span class="text-red-600">*</span></label>
+            <input
+              type="text"
+              value="{{ user.fullname }}"
+              name="name"
+              id="name"
+              class="checkout-inputs md:text-md"
+              required
+            />
+          </div>
+          <div>
+            <label class="dark:text-neutral-200">Phone Number: <span class="text-red-600">*</span></label>
+            <input
+              type="text"
+              value="{{ user.phone_number }}"
+              name="phone_number"
+              id="phone_number"
+              class="checkout-inputs  md:text-md"
+              required
+            />
+          </div>
+          <div>
+            <label class="dark:text-neutral-200">Address: <span class="text-red-600">*</span></label>
+            <input
+              type="text"
+              value="{{ address.street }}"
+              name="address"
+              id="address"
+              class="checkout-inputs  md:text-md"
+              required
+            />
+          </div>
+          <div>
+            <label class="dark:text-neutral-200">City: <span class="text-red-600">*</span></label>
+            <select name="city" id="city" class="md:text-lg">
+              <option value="" selected>------------</option>
+              {% for c in city %}
+              {% if c.city == address.city %}
+                <option value="{{ c.city }}" selected>{{ c.city }}</option>
+                {% endif %}
+                <option value="{{ c.city }}">{{ c.city }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div id="order-menu" class="bg-white dark:bg-tree rounded-md shadow-md p-3 w-full sm:w-11/12 mx-auto md:w-9/12">
+        <h3 class="md:text-xl font-semibold dark:text-neutral-200">Order Menu</h3>
+        <div id="order-menu-container">
+          {% for m in menu %}
+          <div
+            class="menu flex flex-col border-b border-neutral-300 pb-3 text-sm mt-3"
+          >
+            <div class="grid grid-cols-3 grid-rows-1 h-[12vh] md:h-[20vh] gap-3">
+              <img
+                src="{{ m.menu.image }}"
+                class="object-cover h-full w-full"
+              />
+              <div class="place-content-center">
+                <h3 class="text-3xl md:text-4xl lg:text-2xl font-monte text-brown dark:text-grey">
+                  {{ m.menu.name }}
+                </h3>
+                <p class="prices text-[11px] dark:text-grey">{{ m.menu.price }}</p>
+              </div>
+              <p class="place-self-center text-neutral-400 md:text-md">
+                x{{ m.quantity }}
+              </p>
+            </div>
+            <p class="self-end text-[13px] md:text-sm text-orange">
+              Total menu : <span class="prices">{{ m.total }}</span>
+            </p>
+          </div>
+          {% endfor %}
+          <a href="/cart/" class="text-brown dark:text-grey">Edit</a>
+        </div>
+      </div>
+
+      <div id="payment" class="bg-white dark:bg-tree p-3 shadow-md rounded-md w-full sm:w-11/12 mx-auto md:w-9/12">
+        <h3 class="md:text-xl font-semibold dark:text-neutral-200">Payment</h3>
+        <div class="flex">
+          <p class="text-sm text-orange">Payment Method</p>
+          <select id="payment-method" name="payment" class="w-1/4 mt-2 dark:bg-skin" required>
+            <option value="" selected>---------</option>
+            {% for p in payment %}
+            <option value="{{ p.slug }}">{{ p.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+    </div>
+    <div id="payment-detail"
+        class="bg-white dark:bg-neutral-800 dark:border dark:border-neutral-300 p-3 shadow-md rounded-md text-[12px] text-neutral-600 dark:text-neutral-200 sm:w-11/12 mx-auto md:w-9/12"
+      >
+        <h3 class="mb-3 text-sm">Payment Detail</h3>
+        <div id="subtotal-menu" class="flex justify-between">
+          <p>Subtotal menu :</p>
+          <p class="prices w-fit subtotals">{{ totalmenu.total }}</p>
+        </div>
+        <div id="subtotal-delivery" class="flex justify-between">
+          <p>Subtotal delivery :</p>
+          <p class="prices w-fit subtotals">{{ delivery.cost }}</p>
+        </div>
+        <div id="subtotal-delivery" class="flex justify-between">
+          <p>Handling fee</p>
+          <p class="prices w-fit subtotals handling-fee">0</p>
+        </div>
+
+        <h3 class="mt-10 font-semibold text-lg">Total Payment</h3>
+        <p class="prices text-lg text-orange" id="checkoutalltotal"></p>
+        <input type="hidden" name="alltotal" id="alltotalpayment" value="" />
+    </div>
+
+    <div id="button-process" class="sm:w-11/12 mx-auto md:w-9/12 flex justify-end">
+      <button type="submit" class="mt-10 md:text-xl self-end bg-orange text-white px-6 py-2 rounded-md shadow-md">Process</p>
+    </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}

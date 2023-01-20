@@ -1,0 +1,17 @@
+@font-face {
+  font-family: montecarlo;
+  src: url("./MonteCarlo-Regular.ttf");
+}
+
+@font-face {
+  font-family: poppins;
+  src: url("./Poppins-Regular.ttf");
+}
+
+.font-monte {
+  font-family: montecarlo, cursive;
+}
+
+.font-poppins {
+  font-family: poppins, sans-serif;
+}

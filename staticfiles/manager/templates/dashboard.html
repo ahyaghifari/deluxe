@@ -1,0 +1,118 @@
+{% extends 'base-users.html' %}{% block content %}
+
+<div id="dashboard">
+  <div id="dashboard-header" class="shadow-md">
+    <div
+      id="dashboard-header-main"
+      class="flex justify-between items-end bg-brown p-2 md:px-5"
+    >
+      <h1 class="text-xl font-semibold md:text-4xl text-neutral-100">
+        Dashboard
+      </h1>
+      <a href="/" class="text-skin md:text-xl">Back To Home</a>
+    </div>
+    <div
+      id="dashboard-header-nav-username"
+      class="flex items-center justify-between py-2 px-5 bg-neutral-100 dark:bg-tree"
+    >
+      <div class="flex items-center">
+        <button class="dashboard-sidebar-toggle md:hidden">
+          <svg
+            viewBox="0 0 128 512"
+            class="w-[5px] fill-brown dark:fill-orange"
+          >
+            <path
+              d="M64 360c30.9 0 56 25.1 56 56s-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56zm0-160c30.9 0 56 25.1 56 56s-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56zM120 96c0 30.9-25.1 56-56 56S8 126.9 8 96S33.1 40 64 40s56 25.1 56 56z"
+            />
+          </svg>
+        </button>
+        <h3 class="ml-5 text-neutral-900 dark:text-skin md:text-xl">
+          Hi, {% if request.user.is_superuser %}admin {% else %}staff{% endif %}
+          <!---->
+          <span class="text-brown dark:text-grey">
+            {{request.user.username }}
+          </span>
+        </h3>
+      </div>
+      <a onClick="javascript:history.go(-1);" class="cursor-pointer">Back</a>
+    </div>
+  </div>
+
+  <div id="dashboard-container" class="flex p-3">
+    {% include 'dashboard-sidebar.html' %}
+    <!-- Home -->
+    {% if page == 'home' %} {% include 'dashboard-home.html' %}
+    <!-- Menu -->
+    {% elif page == 'menu' %} {% include 'dashboard-menu.html' %}
+    <!-- News -->
+    {% elif page == 'news' %} {% include 'dashboard-news.html' %}
+    <!-- Cart -->
+    {% elif page == 'carts' %}
+    <!---->
+    {% include 'dashboard-cart.html' with content="all" %}
+    <!-- Cart Detail-->
+    {% elif page == 'cartsdetail' %}
+    <!---->
+    {% include 'dashboard-cart.html' with content="detail" %}
+    <!-- Order -->
+    {% elif page == 'orders' %}
+    <!---->
+    {% include 'dashboard-order.html' with content="all" %}
+    <!-- Order Detail -->
+    {% elif page == 'ordersdetail' %}
+    <!---->
+    {% include 'dashboard-order.html' with content="detail" %}
+    <!-- Users -->
+    {% elif page == 'users' %}
+    <!--All User-->
+    {% include 'dashboard-users.html' with content="all" %}
+    <!---->
+    {% elif page == 'userdetail' %}
+    <!---->
+    {% include 'dashboard-users.html' with content="detail" %}
+    <!---->
+    {% elif page == 'edituser' %}
+    <!---->
+    {% include 'dashboard-users.html' with content="edit" %}
+    <!-- Contacts -->
+    {% elif page == 'contacts' %}
+    <!---->
+    {% include 'dashboard-contacts.html' with content="all"%}
+    <!-- Contacts -->
+    {% elif page == 'contactdetail' %}
+    <!---->
+    {% include 'dashboard-contacts.html' with content="detail"%}
+    <!-- Subscribers -->
+    {% elif page == 'subscribers' %}
+    <!---->
+    {% include 'dashboard-subscribers.html' with content="all"%}
+    <!-- -->
+    {% elif page == 'subscribersedit' %}
+    <!---->
+    {% include 'dashboard-subscribers.html' with content="edit"%}
+    <!-- About -->
+    {% elif page == 'about' %}
+    <!---->
+    {% include 'dashboard-about.html'%}
+    <!-- Greeting -->
+    {% elif page == 'greeting' %}
+    <!---->
+    {% include 'dashboard-greeting.html'%}
+    <!-- Locations -->
+    {% elif page == 'locations' %}
+    <!---->
+    {% include 'dashboard-locations.html' with content="all"%}
+    <!-- -->
+    {% elif page == 'editlocation' %}
+    <!---->
+    {% include 'dashboard-locations.html' with content="edit"%}
+    <!-- -->
+    {% elif page == 'addlocation' %}
+    <!---->
+    {% include 'dashboard-locations.html' with content="add"%}
+    <!---->
+    {% endif %}
+  </div>
+</div>
+
+{% include 'components/footer.html' %} {% endblock %}

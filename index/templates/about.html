@@ -1,0 +1,17 @@
+{% extends 'base.html' %}{% block content %}
+
+<div
+  id="about"
+  class="px-3 h-screen flex flex-col justify-center items-center text-center md:w-10/12 mx-auto"
+>
+  <h1 class="font-monte text-6xl md:text-7xl lg:text-9xl">About</h1>
+  <p
+    class="mt-8 text-sm w-11/12 sm:w-10/12 md:w-7/12 lg:w-5/12 md:text-base lg:text-lg"
+  >
+    {{ about | safe }}
+  </p>
+
+  <a href="/about/gfk-food/" class="mt-5 underline">gfk-food</a>
+</div>
+
+{% endblock content %}

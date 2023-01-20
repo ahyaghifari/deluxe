@@ -1,0 +1,19 @@
+<form id="form-rating" class="w-fit">
+  <div class="flex flex-row-reverse w-fit">
+    <input {% if userrate == 5 %}checked{% endif %} id="rating-star5"
+    type="radio" name="rating" value="5" disabled />
+    <label for="rating-star5" class="text-2xl"></label>
+    <input {% if userrate == 4 %}checked{% endif %} id="rating-star4"
+    type="radio" name="rating" value="4" disabled />
+    <label for="rating-star4" class="text-2xl"></label>
+    <input {% if userrate == 3 %}checked{% endif %} id="rating-star3"
+    type="radio" name="rating" value="3" disabled />
+    <label for="rating-star3" class="text-2xl"></label>
+    <input {% if userrate == 2 %}checked{% endif %} id="rating-star2"
+    type="radio" name="rating" value="2" disabled />
+    <label for="rating-star2" class="text-2xl"></label>
+    <input {% if userrate == 1 %}checked{% endif %} id="rating-star1"
+    type="radio" name="rating" value="1" disabled />
+    <label for="rating-star1" class="text-2xl"></label>
+  </div>
+</form>

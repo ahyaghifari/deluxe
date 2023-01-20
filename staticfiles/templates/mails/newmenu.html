@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Menu | Deluxe</title>
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        color: #7c3c21;
+      }
+      body {
+        background-color: #f5f5f5;
+        font-family: "Poppins", sans-serif;
+      }
+      .text-orange {
+        color: #ec823a;
+      }
+      header {
+        padding: 3vh 0;
+        margin: 2vh 0;
+        text-align: center;
+        border-bottom: 2px dashed lightgray;
+      }
+      main,
+      footer {
+        padding: 1rem;
+      }
+      main p,
+      main a {
+        font-size: small;
+      }
+
+      main #image-description {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      main #description {
+        font-size: x-small;
+        width: 80%;
+      }
+
+      footer {
+        border-top: 2px dashed lightgray;
+        margin-top: 5vh;
+        display: flex;
+        justify-content: center;
+      }
+      footer a {
+        font-size: small;
+        margin: 0 2vw;
+      }
+      @media (min-width: 640px) {
+        header h2 {
+          font-size: xx-large;
+        }
+        main {
+          width: 90%;
+          margin: auto;
+        }
+        main p,
+        main a {
+          font-size: medium;
+        }
+        main #image-description {
+          width: 100%;
+          flex-direction: row;
+          text-align: right;
+          justify-content: space-around !important;
+        }
+        main img {
+          height: 30vh;
+        }
+        main #description {
+          font-size: small;
+          width: 50%;
+        }
+        main a {
+          font-size: medium;
+        }
+        footer a {
+          font-size: medium;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-neutral-100">
+    <header>
+      <h2>New Menu | <span class="text-orange">{{ name }}</span></h2>
+      <h5>By <span class="text-orange"> Deluxe</span></h5>
+    </header>
+    <main>
+      <p>Hi there, let us introduce our menu :</p>
+      <h4 class="text-orange">{{ name }}</h4>
+      <div style="text-align: center; margin: 2vh auto" id="image-description">
+        <img
+          src="{{ image }}"
+          style="margin: 2vh 0; height: 25vh; border-radius: 1rem"
+          alt="{{name}}"
+        />
+        <p id="description" class="text-center">{{ desc }}</p>
+      </div>
+      <p style="color: #7c3c21; margin: 2vh 0">
+        Price : <span class="text-orange">Rp. {{ price }},00</span>
+      </p>
+      <a
+        style="
+          background-color: #ec823a;
+          width: fit-content;
+          padding: 4px;
+          border-radius: 0.5rem;
+          text-decoration: none;
+          color: #7c3c21;
+        "
+        href="{{ menulink }}"
+        target="_blank"
+        >Let's check on our <span style="color: #f5f5f5">Menu</span></a
+      >
+    </main>
+    <footer>
+      <a href="{{ deluxelink }}" style="color: #7c3c21" target="_blank"
+        >Deluxe</a
+      >
+      <a href="{{ unsubscribelink }}" style="color: #7c3c21" target="_blank"
+        >Unsubscribe</a
+      >
+    </footer>
+  </body>
+</html>

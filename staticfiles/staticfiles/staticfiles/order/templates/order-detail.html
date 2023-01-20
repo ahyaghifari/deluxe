@@ -1,0 +1,163 @@
+{% extends 'base-users.html' %} {% load customtags %} {% block content %}
+
+<div id="detail-order" class="sticky top-0">
+  <div id="header-detail-order" class="text-grey h-[20vh] p-10 relative 
+  {% if order.status.status == "notpaid" %}
+  bg-neutral-800
+  {% elif order.status.status == "onprocess" %}
+  bg-brown
+  {% elif order.status.status == "ontheway" %}
+  bg-sky-700
+  {% elif order.status.status == "received" %}
+  bg-teal-700
+  {% elif order.status.status == "finished" %}
+  bg-green-700
+  {% elif order.status.status == "canceled" %}
+  bg-red-700
+  {% endif %}
+  ">
+  {% if request.user|customergate %}
+    <h3 class="md:text-lg lg:text-xl">{% if order.status.code == 101 %}Your {% else %}This {% endif %} order is <span class="font-semibold"> {{ order.status }}</span></h3>
+  {% else %}
+    <h3 class="md:text-lg lg:text-xl">This order is <span class="font-semibold"> {{ order.status }}</span></h3>
+  {% endif %}
+    {% if request.user|ordermanagergate and order.status.status != "notpaid" and order.status.status != "finished" and order.status.status != "canceled" %}
+    <form method="post" action="/order/change-status/" class="form-orderchangestatus mt-2 flex justify-center items-center h-full p-1">
+        {% csrf_token %}
+        <select name="status" data-status="{{ order.status.status }}" class="order-status-select text-neutral-800 text-[12px] md:text-[14px] px-2 py-1 rounded-md focus:bg-neutral-100 border-neutral-400 focus:divide-x-0 focus:divide-y-0 focus:border focus:border-neutral-400 w-8/12">
+          <option {% if op.status.status == "onprocess" %}selected{% endif %} value="onprocess" class="bg-brown text-grey">On Process</option>
+          <option {% if op.status.status == "ontheway" %}selected{% endif %} value="ontheway" class="bg-sky-700 text-grey">On The Way</option>
+          <option {% if op.status.status == "received" %}selected{% endif %} value="received" class="bg-teal-700 text-grey">Received</option>
+          {% if op.status.status == "received" %}
+          <option value="finished" class="bg-green-700 text-grey">Finished</option>
+          {% endif %}
+        </select>
+        <button type="submit" class="text-[11px] ml-2 bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 p-1 rounded-md disabled:opacity-50" disabled>
+          Change</button>
+        <input type="hidden" name="token" value="{{ order.order_token }}" />
+          <input type="hidden" name="next" value="{{ request.path }}#onprocess" />
+        </form>
+    {% endif %}
+    {% if request.user|customergate %}
+    <a href="/order/?status={{ order.status.status }}" class="absolute right-2 top-2 cursor-pointer md:text-lg">Back</a>
+    {% else %}
+    <a onClick="javascript:history.go(-1);" class="absolute right-2 top-2 cursor-pointer md:text-lg">Back</a>
+    {% endif %}
+  </div>
+
+  <div id="detail-order-receiver" class="p-3 border-b border-neutral-300">
+    <h3 class="text-neutral-700 dark:text-neutral-200 text-lg border-b border-neutral-200">
+      Receiver & Address
+    </h3>
+    <h3 class="mt-3 text-neutral-700 dark:text-neutral-200 font-semibold">
+      {{ receiver.name }} ({{ receiver.phone_number}})
+    </h3>
+    <h3 class="text-neutral-500 dark:text-neutral-300 text-sm">{{ receiver.address}}</h3>
+    <h3 class="mt-2">{{ receiver.city }}</h3>
+  </div>
+
+  <div id="detail-order-menu" class="mt-10 p-3 md:w-10/12 mx-auto">
+    <h3 class="text-xl mb-3">Menu</h3>
+    {% for m in menu %}
+    <div
+      class="menu mt-5 border-b border-neutral-200 pb-3"
+    >
+    <div class="w-full grid grid-cols-3 grid-rows-1 gap-3 h-[15vh] md:h-[18vh] lg:h-[22vh]">
+      <img src="{{ m.menu.image }}" class="h-full object-cover w-full" />
+      <div id="name-price" class="place-self-center text-center">
+        <h4 class="font-monte text-2xl sm:text-3xl md:text-4xl">{{ m.menu.name }}</h4>
+        <p class="prices text-[11px] md:text-[13px] mt-2">{{ m.menu.price }}</p>
+      </div>
+      <div
+        id="detail-menu"
+        class="text-sm flex flex-col justify-end items-end text-[12px] sm:text-[15px] md:text-sm lg:text-md"
+      >
+        <a href="/menu/{{ m.menu.slug }}" class="mb-5">See menu..</a>
+        <p class="text-neutral-500">x{{ m.quantity }}</p>
+        <p class="text-[12px] sm:text-[15px] text-sm">Total : <span class="prices text-orange">{{ m.total }}</span></p>
+      </div>
+    </div>
+    {% if request.user|customergate and order.status.status == "finished" %}
+    <div class="order-user-rate mt-5">
+      
+      {% if m.userrate == None %}
+      <p class="text-[12px]">You haven't rated yet <a href="/menu/rate/{{ m.menu.slug }}/?next={{ request.path }}" class="text-yellow-500 p-1 uppercase border border-yellow-500 mt-5 rounded-md">Let's rate</a></p>
+      {% else %}
+       <div>
+        <p class="text-sm">Your Rating : </p>
+        <div class="flex mt-1">
+          {% for _ in m.userrate|myrange %}
+          <svg viewBox="0 0 60 60" class="stars w-[25px] sm:w-[32px] md:w-[35px] fill-yellow-400">
+            <path d="m24 34.6-8.65 6.6q-.45.35-.9.3-.45-.05-.85-.3-.4-.25-.575-.675-.175-.425-.025-.975l3.3-10.75-8.5-6.1q-.45-.3-.575-.775-.125-.475.025-.875t.5-.725Q8.1 20 8.65 20H19.2l3.35-11.2q.15-.55.575-.825Q23.55 7.7 24 7.7t.875.275q.425.275.575.825L28.8 20h10.55q.55 0 .9.325t.5.725q.15.4.025.875t-.575.775l-8.5 6.1L35 39.55q.15.55-.025.975-.175.425-.575.675-.4.25-.85.3-.45.05-.9-.3Z"/>
+          </svg>
+        {% endfor %}
+          <a href="/menu/rate/{{ m.menu.slug }}/?next={{ request.path }}">
+        <svg class="ml-3 w-[15px] fill-neutral-400" viewBox="0 0 512 512"><path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg></a>
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+    {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  <div id="detail-order-payment" class="mt-10 p-3">
+    <h3 class="text-neutral-800 dark:text-neutral-200 text-lg">Payment</h3>
+    <p class="mt-3 text-sm">
+      Payment method :
+      <span class="text-neutral-800 dark:text-neutral-200"> {{ payment.payment_method }}</span>
+    </p>
+    <p>
+      Payment code :<span class="text-sm text-neutral-800 dark:text-neutral-200">
+        {{ payment.payment_token }}</span
+      >
+    </p>
+  </div>
+
+  <div id="detail-order-subtotal"
+    class="bg-neutral-200 dark:bg-neutral-900 p-3 mt-10 text-neutral-500 dark:text-neutral-300 text-sm"
+  >
+    <p>Subtotal menu : <span class="prices"> {{ totalmenu }}</span></p>
+    <p>Shipping Cost : <span class="prices"> 10000.00</span></p>
+    <p>Payment Service : <span class="prices"> 2500.00</span></p>
+  </div>
+
+  <h3 class="text-lg md:text-xl p-3 mt-8">
+    All Total : <span class="prices text-orange"> {{ order.total }}</span>
+  </h3>
+
+  {% if request.user|customergate %}
+
+  {% if order.status.status == "notpaid" %}
+  <form action="/order/pay" method="post" class="mt-10 w-10/12 mx-auto">
+    <input type="hidden" name="token" value="{{ order.order_token }}" />
+    <button type="submit" class="bg-orange text-white py-2 w-full rounded-md">
+      Pay
+    </button>
+  </form>
+  {% endif %}
+
+  {% if order.status.status == "notpaid" or order.status.status == "onprocess" %}
+    <form id="form-order-cancel" method="post" action="/order/order-cancel/" class="my-10 p-3">
+      {% csrf_token %}
+      <input type="hidden" name="token" value="{{ order.order_token }}" />
+      <button id="order-cancel-btn" type="submit" class="px-3 py-1 border border-red-600 rounded-md text-sm text-red-600">Cancel Order</button>
+    </form>
+  {% endif %}
+
+  {% if order.status.status == "ontheway" or order.status.status == "received" %}
+        <form action="/order/order-received/" method="post" class="my-10 w-10/12 mx-auto">
+          {% csrf_token %}
+          <input type="hidden" name="order-token" value="{{ o.order_token }}" />
+          <button type="submit" class="text-sm bg-grey py-1 rounded-md w-full disabled:opacity-50" {% if order.status.code == 101 %}disabled{% endif %} >
+            Received
+          </button>
+        </form>
+    {% endif %}
+
+  {% endif %}
+
+  </div>
+{% endblock %}

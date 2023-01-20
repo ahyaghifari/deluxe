@@ -1,0 +1,19 @@
+{% extends 'base.html' %}{% load static %}{% block content %}
+
+<div id="gfk-food" class="pt-20 p-3">
+  <h1 class="text-xl font-semibold sm:text-2xl md:text-4xl dark:text-grey">
+    gfk-food
+  </h1>
+
+  <div
+    id="gfk-food-container"
+    class="mt-10 flex flex-col gap-5 w-11/12 sm:w-10/12 md:w-9/12 lg:w-7/12 mx-auto"
+  >
+    <img src="{% static 'gfk-food/home.png' %}" />
+    <img src="{% static 'gfk-food/menu.png' %}" />
+    <img src="{% static 'gfk-food/news.png' %}" />
+    <img src="{% static 'gfk-food/user.png' %}" />
+  </div>
+</div>
+
+{% endblock %}

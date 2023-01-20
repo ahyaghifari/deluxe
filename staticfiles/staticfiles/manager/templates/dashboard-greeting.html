@@ -1,0 +1,38 @@
+<div id="dashboard-greeting" class="w-full p-4">
+  <h1 class="text-3xl md:text-5xl border-b border-neutral-400 pb-5">
+    Greeting
+  </h1>
+  <div id="dashboard-greeting-container" class="mt-10">
+    <div id="dashboard-greeting-content">
+      <p>{{ greeting.text}}</p>
+    </div>
+
+    <div id="dashboard-greeting-edit" class="mt-10 md:w-3/4 accordion">
+      <div
+        id="dashboard-greeting-edit-header"
+        class="text-neutral-700 dark:text-neutral-200 accordion-btn cursor-pointer text-xl flex justify-between items-center border-b border-neutral-700"
+      >
+        <h3>Edit</h3>
+        <span class="material-symbols-rounded"> expand_more </span>
+      </div>
+      <div
+        id="dashboard-greeting-edit-container"
+        class="mt-5 accordion-content"
+      >
+        <form method="post" action="/manager/greeting/" class="flex flex-col">
+          {% csrf_token %}
+          <label>Text : </label>
+          <textarea id="greeting-text" rows="10" name="text" class="mt-5">
+{{ greeting.text }}</textarea
+          >
+          <button
+            type="submit"
+            class="bg-brown text-neutral-100 px-3 py-1 mt-5 w-fit rounded-md"
+          >
+            Update
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

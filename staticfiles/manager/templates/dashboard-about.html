@@ -1,0 +1,35 @@
+<div id="dashboard-about" class="w-full p-4">
+  <h1 class="text-3xl md:text-5xl border-b border-neutral-400 pb-5">About</h1>
+  <div id="dashboard-about-container" class="mt-10">
+    <div id="dashboard-about-content">
+      <p class="text-sm md:text-base">{{ about.text | safe }}</p>
+    </div>
+    {% if user.is_superuser %}
+
+    <div id="dashboard-about-edit" class="mt-10 md:w-3/4 accordion">
+      <div
+        id="dashboard-about-edit-header"
+        class="text-neutral-700 accordion-btn cursor-pointer text-xl flex justify-between items-center border-b border-neutral-700"
+      >
+        <h3 class="dark:text-neutral-200">Edit</h3>
+        <span class="material-symbols-rounded"> expand_more </span>
+      </div>
+      <div id="dashboard-about-edit-container" class="mt-5 accordion-content">
+        <form method="post" action="/manager/about/" class="flex flex-col">
+          {% csrf_token %}
+          <label>Text : </label>
+          <textarea id="about-text" name="text" class="mt-5">
+{{ about.text }}</textarea
+          >
+          <button
+            type="submit"
+            class="bg-brown text-neutral-100 px-3 py-1 mt-5 w-fit rounded-md"
+          >
+            Update
+          </button>
+        </form>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>

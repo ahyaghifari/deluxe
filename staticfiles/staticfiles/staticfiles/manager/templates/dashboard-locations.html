@@ -1,0 +1,91 @@
+<div id="dashboard-locations" class="w-full p-4">
+  <div id="dashboard-locations-header" class="border-b border-neutral-400 pb-5 flex justify-between items-center">
+    <h1 class="text-3xl md:text-5xl">
+      Locations
+    </h1>
+    {% if user.is_superuser %}
+      <a
+        href="/manager/locations/add/"
+        class="border border-brown px-3 py-1 rounded-md mb-5"
+        >Add+</a
+      >
+      {% endif %}
+  </div>
+
+  <div id="dashboard-locations-container" class="mt-5 overflow-x-scroll">
+    {% if content == "all" %}
+    <div id="dashboard-locations-all">
+      <table
+        class="table-auto border-separate border-spacing-x-4 text-center border-spacing-y-3 mt-5 w-full"
+      >
+        <tr class="text-neutral-700 dark:text-neutral-200 font-semibold text-sm">
+          <th class="border-r border-neutral-300 px-3">City</th>
+          <th class="border-r border-neutral-300 px-3">Address</th>
+          <th class="border-r border-neutral-300 px-3">
+            Image
+          </th>
+          <th class="border-r border-neutral-300 px-3">Action</th>
+        </tr class="my-3">
+        {% for l in locations %}
+        <tr class="h-[10vh]">
+          <td>{{ l.city }}</td>
+          <td class="text-neutral-700 dark:text-neutral-200 text-[12px] md:text-sm">
+            {{ l.address  }}
+          </td>
+          <td><img src="{{ l.image }}" class="h-[10vh] w-full object-contain" /></td>
+          <td>
+            <a href="/manager/locations/edit/{{ l.city }}"
+              ><span
+                class="material-symbols-rounded text-orange text-[18px] md:text-[22px]"
+              >
+                edit
+              </span></a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    {% elif content == "edit" %}
+    <div id="dashboard-locations-edit">
+      <h3 class="text-xl md:text-2xl">Edit Location</h3>
+      <form action="/manager/locations/edit/" method="post" class="md:w-8/12">
+        {% csrf_token %} {{ form.as_div }}
+        <button
+          class="bg-brown text-neutral-100 px-5 py-2 rounded-md md:text-lg"
+        >
+          Update
+        </button>
+      </form>
+
+      {% if user.is_superuser %}
+      <form action="/manager/locations/delete/" method="post" class="mt-10">
+        {% csrf_token %}
+        <input type="hidden" name="city" value="{{ location.city }}" />
+        <button
+          type="submit"
+          class="text-neutral-700 border border-neutral-700 rounded-md px-3 py-1"
+          onclick="return(confirm('Are You Sure?'))"
+        >
+          Delete
+        </button>
+      </form>
+      {% endif %}
+    </div>
+
+    {% elif content == "add" %}
+    <div id="dashboard-locations-edit">
+      <h3 class="text-xl md:text-2xl">New Location</h3>
+      <form action="/manager/locations/add/" method="post" class="md:w-8/12">
+        {% csrf_token %} {{ form.as_div }}
+        <button
+          type="submit"
+          class="bg-brown text-grey rounded-md px-3 py-1 md:text-xl"
+        >
+          Add
+        </button>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+</div>

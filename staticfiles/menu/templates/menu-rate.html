@@ -1,0 +1,99 @@
+{% extends 'base.html' %} {% load customtags %} {% block content %}
+
+<div id="menu-rate" class="flex justify-center items-center p-3 h-screen">
+  <div
+    id="menu-rate-container"
+    class="rounded-md aspect-[1/1] mt-10 w-10/12 sm:w-8/12 md:w-5/12 lg:w-4/12"
+  >
+    <div
+      id="menu-rate-header"
+      class="flex justify-between items-center border-b bg-grey dark:bg-brown border-dashed border-brown p-3"
+    >
+      <h1>Rate : <span class="font-monte text-2xl"> {{ menu.name }}</span></h1>
+      <a onClick="javascript:history.go(-1);" class="cursor-pointer">Back</a>
+    </div>
+    <div id="menu-rate-content" class="h-full shadow-md">
+      <div
+        id="menu-rate-menu"
+        class="grid grid-cols-2 h-2/6 shadow-md place-content-center dark:bg-neutral-800"
+      >
+        <img
+          src="{{ menu.image }}"
+          class="w-8/12 mx-auto aspect-[4/3] object-cover"
+        />
+        <div id="menu-rate-menu-detail">
+          <p class="font-monte text-3xl">{{ menu.name }}</p>
+          <p class="prices text-[12px]">{{ menu.price }}</p>
+
+          <div id="menu-rate-menu-star" class="mt-2 flex">
+            {% for _ in rating|myrange %}
+            <svg
+              viewBox="0 0 60 60"
+              class="stars w-[14px] md:w-[17px] lg:w-[24px] fill-yellow-400"
+            >
+              <path
+                d="m24 34.6-8.65 6.6q-.45.35-.9.3-.45-.05-.85-.3-.4-.25-.575-.675-.175-.425-.025-.975l3.3-10.75-8.5-6.1q-.45-.3-.575-.775-.125-.475.025-.875t.5-.725Q8.1 20 8.65 20H19.2l3.35-11.2q.15-.55.575-.825Q23.55 7.7 24 7.7t.875.275q.425.275.575.825L28.8 20h10.55q.55 0 .9.325t.5.725q.15.4.025.875t-.575.775l-8.5 6.1L35 39.55q.15.55-.025.975-.175.425-.575.675-.4.25-.85.3-.45.05-.9-.3Z"
+              />
+            </svg>
+            {% endfor %}
+            <p class="text-[11px] text-neutral-500 mr-1">({{ menu.rating }})</p>
+          </div>
+        </div>
+      </div>
+      <div
+        id="menu-rate-form"
+        class="bg-neutral-200 dark:bg-neutral-700 justify-self-stretch h-4/6 flex justify-center items-center"
+      >
+        <form action="/menu/rate/" method="post" id="form-rating" class="w-fit">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.GET.next }}" />
+          <input type="hidden" name="menu" value="{{ menu.slug }}" />
+          <div class="flex flex-row-reverse w-fit">
+            <input {% if userrate == 5 %}checked{% endif %} id="rating-star5"
+            type="radio" name="rating" value="5" />
+            <label for="rating-star5" class="text-4xl"></label>
+            <input {% if userrate == 4 %}checked{% endif %} id="rating-star4"
+            type="radio" name="rating" value="4" />
+            <label for="rating-star4" class="text-4xl"></label>
+            <input {% if userrate == 3 %}checked{% endif %} id="rating-star3"
+            type="radio" name="rating" value="3" />
+            <label for="rating-star3" class="text-4xl"></label>
+            <input {% if userrate == 2 %}checked{% endif %} id="rating-star2"
+            type="radio" name="rating" value="2" />
+            <label for="rating-star2" class="text-4xl"></label>
+            <input {% if userrate == 1 %}checked{% endif %} id="rating-star1"
+            type="radio" name="rating" value="1" />
+            <label for="rating-star1" class="text-4xl"></label>
+          </div>
+          <button
+            type="submit"
+            class="bg-brown text-grey rounded-md w-full translate-y-10"
+          >
+            Rate
+          </button>
+        </form>
+      </div>
+    </div>
+
+    {% if userrate > 0 %}
+    <form
+      action="/menu/rate/delete/"
+      id="form-delete-rate"
+      method="post"
+      class="mt-10"
+    >
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.GET.next }}" />
+      <input type="hidden" name="menu" value="{{ menu.slug }}" />
+      <button
+        id="delete-menu-rate"
+        type="submit"
+        class="border border-red-600 text-red-600 p-1 text-sm rounded-md"
+      >
+        Remove Rate
+      </button>
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

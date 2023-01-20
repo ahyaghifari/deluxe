@@ -1,0 +1,55 @@
+{% extends 'base-form.html' %}{% block content %}
+
+<div id="news-form" class="p-3">
+  {% include 'components/image-preview.html' %}
+  <a onClick="javascript:history.go(-1);" class="cursor-pointer dark:text-skin">Back</a>
+  <h1
+    class="mt-10 text-3xl md:text-4xl lg:text-4xl border-b border-neutral-300 pb-2"
+  >
+    Edit News
+  </h1>
+
+  <form action="/news/update/" method="post">
+    {% csrf_token %}
+    <div class="news-input">
+      <label>Title</label>
+      <input type="text" name="title" value="{{ news.title }}" required />
+    </div>
+    <div class="news-input">
+      <label>Author</label>
+      <input type="text" name="author" value="{{ news.author }}" />
+    </div>
+    <div class="news-input">
+      <label>Image</label>
+      <input type="text" name="image" value="{{ news.image }}" id="id_image" />
+    </div>
+    <div id="news-form-tiny">
+      <label>Body</label>
+      <input id="b" name="body" type="hidden" />
+      <textarea id="id_body" name="body">{{ news.body }}</textarea>
+    </div>
+
+    <input type="hidden" name="slug" value="{{ news.slug }}" />
+
+    {% if request.GET.next %}
+    <input type="hidden" name="next" value="{{ request.GET.next }}" />
+    {% endif %}
+
+    <button type="submit" class="bg-brown px-4 py-1 rounded-md text-grey">
+      Update
+    </button>
+  </form>
+
+  <div class="mt-16">
+    <form id="form-delete-news" action="/news/delete/" method="post">
+      {% csrf_token %}
+    {% if request.GET.next %}
+    <input type="hidden" name="next" value="{{ request.GET.next }}"></input>
+    {% endif %}
+    <input type="hidden" name="news" value="{{ news.slug }}"></input>
+    <button type="submit" id="delete-news-btn" class="cursor-pointer px-5 py-2 border border-red-500 text-red-500 rounded-md"
+      >Delete</button>
+  </div>
+</div>
+
+{% endblock content %}

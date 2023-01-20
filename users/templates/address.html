@@ -1,0 +1,48 @@
+<div id="address">
+  <div id="address-header" class="flex justify-between">
+    <h2 class="text-2xl font-semibold md:text-4xl">Address</h2>
+    {% if addresscount < 3 %}
+    <a
+      href="/users/settings/address/new/"
+      class="border border-brown px-4 py-1 rounded-md"
+      >New+</a
+    >
+    {% endif %}
+  </div>
+
+  <div id="address-description" class="mt-2 w-fit">
+    <p
+      class="text-[10px] md:text-[13px] text-neutral-600 dark:text-neutral-300 w-10/12"
+    >
+      Address with <b>Default</b> is automatically fill your checkout
+      <span class="text-brown dark:text-skin">Receiver & Address</span> form.
+      You can have 3 address.
+    </p>
+  </div>
+
+  <div
+    id="address-container"
+    class="mt-6 flex flex-col h-[70vh] gap-5 text-sm md:w-11/12 mx-auto"
+  >
+    {% for a in address %}
+    <div
+      class="address border-b border-neutral-300 pb-5 mt-5 flex justify-between items-center"
+    >
+      <div class="w-full">
+        {% if a.default == True %}
+        <p class="text-neutral-800 dark:text-neutral-200 font-semibold">
+          Default
+        </p>
+        {% endif %}
+        <h3 class="text-neutral-800 mt-2 md:text-lg dark:text-neutral-300">
+          {{ a.street }}
+        </h3>
+        <p class="mt-2">{{ a.city }}, {{ a.zip_code }}</p>
+      </div>
+      <div class="text-neutral-600 dark:text-neutral-300 md:text-lg">
+        <a href="/users/settings/address/edit/{{ a.address_code }}">Edit</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

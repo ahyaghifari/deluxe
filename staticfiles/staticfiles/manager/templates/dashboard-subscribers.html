@@ -1,0 +1,76 @@
+<div id="dashboard-subscribers" class="w-full p-2">
+  {% if content == "all" %}
+  <h1 class="text-3xl md:text-5xl lg:text-6xl">Subscribers</h1>
+
+  <div id="dashboard-subscribers-filter" class="accordion mt-5">
+    <p class="accordion-btn text-neutral-700 dark:text-grey flex items-start md:items-center cursor-pointer md:text-lg w-fit"><svg viewBox="0 0 50 50" class="w-[20px] fill-neutral-800 dark:fill-neutral-200"><path d="M22 40q-.85 0-1.425-.575Q20 38.85 20 38V26L8.05 10.75q-.7-.85-.2-1.8Q8.35 8 9.4 8h29.2q1.05 0 1.55.95t-.2 1.8L28 26v12q0 .85-.575 1.425Q26.85 40 26 40Zm2-13.8L36 11H12Zm0 0Z"/></svg>Filter</p>
+    <div class="accordion-content {% if request.GET.email or request.GET.active %}active{% endif %}">
+      <form method="get" action="/manager/subscribers/" class="form-filter flex flex-col md:flex-row md:justify-evenly md:items-center flex-wrap p-3 border border-neutral-300 text-sm">
+        {{ subscribersfilter.form.as_p }}
+        <div>
+        <button type="submit" class="text-sm bg-neutral-600 rounded-md text-grey border border-neutral-500 p-1 w-fit mt-2 md:mt-0">Search</button>
+        <a href="/manager/subscribers/" class="mt-2">Reset</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <p class="text-neutral-400 mt-8 text-sm">{{ subscribers.count }} subscribers</p>
+  <div id="dashboard-subscribers-container"
+    class="h-[75vh] border-y border-neutral-400 overflow-y-scroll overflow-x-scroll w-full"
+  >
+    <table
+      class="border-separate w-full table-auto text-center border-spacing-x-2 border-spacing-y-3 relative"
+    >
+      <tr class="text-neutral-500 font-semibold text-sm mb-5 sticky top-0 bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-200"
+      >
+      {% if request.user.is_superuser %}
+      <th class="border-r border-neutral-300 px-3">Action</th>
+      {% endif %}
+        <th class="border-r border-neutral-300 px-3">Email</th>
+        <th class="border-r border-neutral-300 px-3">Active</th>
+        <th class="border-r border-neutral-300 px-3">Subscribe At</th>
+      </tr>
+      {% for s in subscribers %}
+      <tr class="h-[10vh] text-[12px] md:text-[14px]">
+        {% if request.user.is_superuser %}
+        <td class="flex justify-center items-center py-6">
+          <a href="/manager/subscribers/edit/{{ s.id }}"
+          ><svg class="w-[15px] fill-orange" viewBox="0 0 512 512"><path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg></a>
+      </td>
+      {% endif %}
+        <td class="font-semibold">{{ s.email }}</td>
+        <td class="text-neutral-500">{{s.active}}</td>
+        <td class="text-neutral-500">{{s.created_at}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  {% elif content == "edit" %}
+
+  <div id="dashboard-subscriber-edit" class="p-3">
+    <div
+      id="dashboard-subscriber-edit-header"
+      class="border-b border-neutral-300 pb-4 flex justify-between items-center"
+    >
+      <h1 class="text-xl md:text-2xl lg:text-3xl">Subscriber Edit</h1>
+    </div>
+    <div id="dashboard-subscriber-edit-container" class="mt-10 text-brown dark:text-orange">
+      <form action="/contact/subscribers/update/" method="post" class="md:w-10/12 lg:w-7/12">
+        {% csrf_token %}{{ form.as_div }}
+        <input type="hidden" name="oldemail" value="{{ subscriber }}" />
+      <button class="bg-brown py-2 px-5 text-grey rounded-md">Update</button>
+      </form>
+
+      <form id="form-subscriber-delete" action="/contact/subscribers/delete/" method="post" class="mt-10 md:w-10/12 lg:w-7/12">
+        {% csrf_token %}
+        <input type="hidden" name="email" value="{{ subscriber }}" />
+        <button id="delete-subscriber-btn" class="border border-red-600 py-2 px-5 text-red-600 rounded-md">Delete</button>
+      </form>
+    </div>
+    
+    </div>
+  </div>
+
+  {% endif %}
+</div>

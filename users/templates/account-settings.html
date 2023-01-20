@@ -1,0 +1,58 @@
+{% extends 'base-users.html' %}{% block content %}
+
+<div
+  id="account-settings"
+  class="px-2 md:px-4 py-7 bg-neutral-100 dark:bg-neutral-800"
+>
+  <div
+    id="account-header"
+    class="border-b border-neutral-300 text-neutral-100 flex justify-between bg-brown pb-5 px-3 pt-2"
+  >
+    <h1 class="text-xl sm:text-2xl md:text-3xl p-2">Account Settings</h1>
+    <a href="/users/" class="text-skin md:text-xl">Back</a>
+  </div>
+
+  <div id="account-settings-container" class="flex flex-col md:flex-row">
+    <div
+      id="account-settings-navbar"
+      class="h-fit flex md:flex-col p-2 w-full md:w-[18%] md:max-w-[18%] text-[13px] md:text-base lg:text-lg"
+    >
+      <a href="/users/settings/account/" class="w-fit">Account</a>
+      <a href="/users/settings/address/" class="w-fit ml-5 md:ml-0 md:mt-5"
+        >Address</a
+      >
+      <a
+        href="/users/settings/change-password/"
+        class="ml-5 md:ml-0 md:mt-5 w-fit"
+        >Change Password</a
+      >
+      <a
+        href="/users/settings/other/"
+        class="ml-10 md:ml-0 md:mt-10 w-fit text-neutral-800 dark:text-neutral-100"
+        >Other</a
+      >
+    </div>
+    <div
+      id="account-settings-content"
+      class="w-full bg-white dark:bg-neutral-800 p-5"
+    >
+      {% if page == "account" %}
+      <!--Account-->
+      {% include 'account.html' %}
+      <!--Edit account-->
+      {% elif page == "editaccount" %} {% include 'account-edit.html' %}
+      <!--Address-->
+      {% elif page == "address" %} {% include 'address.html' %}
+      <!--Address Form New-->
+      {% elif page == "newaddress" %} {% include 'address-form-new.html' %}
+      <!--Address Form New-->
+      {% elif page == "editaddress" %} {% include 'address-form-edit.html' %}
+      <!-- Change Password -->
+      {% elif page == "changepassword" %} {% include 'change-password.html' %}
+      <!-- Other -->
+      {% elif page == "other" %} {% include 'other.html' %} {% endif %}
+    </div>
+  </div>
+</div>
+
+{% include 'components/footer.html' %} {% endblock %}
