@@ -245,8 +245,9 @@ def register(request):
             email = request.POST['email']
             phone_number = request.POST['phone_number']
             password1 = request.POST['password1']
-            register = User.objects.create_user(
+            register = User.objects.create_use(
                 fullname=fullname, username=username, email=email, phone_number=phone_number, password=password1)
+
 
             if register:
                 User.objects.get(username=username).groups.add(costumergroup)
