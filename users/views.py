@@ -272,6 +272,9 @@ def forgotpassword(request):
 
             user = User.objects.get(email=email)
 
+            if UserToken.objects.filter(user=user).exists():
+                return HttpResponse("You just have requested reset password please check your email")
+
             token = default_token_generator.make_token(user)
             uidb64 = urlsafe_base64_encode(force_bytes(user.username))
 

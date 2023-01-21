@@ -57,10 +57,6 @@ class ForgotPasswordForm(forms.Form):
 
         if not User.objects.filter(email=data).exists():
             raise forms.ValidationError("Your email not in our data", code="")
-        elif UserToken.objects.filter(email=data).exists():
-            raise forms.ValidationError(
-                "You just have requested, check your email", code="")
-
         return data
 
 
