@@ -29,11 +29,13 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     'index',
     'menu',
+    'news',
+
     'cart',
     'order',
-    'news',
     'contact',
     'users',
+
     'manager',
 
     'django_filters',
@@ -115,11 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
 
 # Internationalization
 
@@ -137,6 +134,7 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # DISABLE_COLLECTSTATIC = 0
 
 # Default primary key field type
