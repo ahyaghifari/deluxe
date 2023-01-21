@@ -245,8 +245,8 @@ def register(request):
             email = request.POST['email']
             phone_number = request.POST['phone_number']
             password1 = request.POST['password1']
-            register = User.objects.create(fullname=fullname, username=username, email=email, phone_number=phone_number, password=password1)
-            register.save()
+            register = User.objects.create_user(
+                fullname=fullname, username=username, email=email, phone_number=phone_number, password=password1)
 
             if register:
                 User.objects.get(username=username).groups.add(costumergroup)
@@ -254,8 +254,8 @@ def register(request):
                     request, username=username, password=password1)
                 login_process(request, user)
                 return redirect('/')
-        else:
-            return render(request, 'auth/register.html', {'title': 'Register', 'form': form})
+
+        return render(request, 'auth/register.html', {'title': 'Register', 'form': form})
 
     else:
         form = RegisterForm
