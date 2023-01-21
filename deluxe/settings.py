@@ -16,7 +16,6 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ['deluxe.up.railway.app', '127.0.0.1']
-MY_HOST = "https://deluxe.up.railway.app"
 
 # Application definition
 
@@ -74,6 +73,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "deluxe.wsgi.application"
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://deluxe.up.railway.app', 'http://127.0.0.1:8000']
+
+MY_HOST = "https://deluxe.up.railway.app"
 
 # Database
 DATABASE_URL = os.getenv("DATABASE_URL")
