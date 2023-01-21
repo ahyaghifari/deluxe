@@ -8,7 +8,7 @@ from django.core.serializers import serialize
 
 
 def index(request):
-    news = News.objects.first()
+    news = News.objects.latest('created_at')
     greeting = Greeting.objects.get()
     category = Category.objects.all().values()
     locations = Locations.objects.all().values()
