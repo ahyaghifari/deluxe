@@ -16,6 +16,7 @@ gunicorn==20.1.0
 idna==3.4
 Pillow==9.1.1
 platformdirs==2.6.2
+psycopg2==2.9.5
 pycodestyle==2.10.0
 python-dateutil==2.8.2
 python-dotenv==0.21.0

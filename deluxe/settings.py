@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -14,8 +15,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-MY_HOST = "http://127.0.0.1:8000"
+ALLOWED_HOSTS =  ['deluxe.up.railway.app', '127.0.0.1']
+MY_HOST = "https://deluxe.up.railway.app"
 
 # Application definition
 
@@ -75,14 +76,24 @@ WSGI_APPLICATION = "deluxe.wsgi.application"
 
 
 # Database
+DATABASE_URL = os.getenv("DATABASE_URL")
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv("PG_DATABASE"),
+        'USER': os.getenv("PG_USER"),
+        'PASSWORD': os.getenv("PG_PASSWORD"),
+        'HOST': os.getenv("PG_HOST"),
+        'PORT': os.getenv("PG_PORT"),
     }
 }
-
 
 # Password validation
 
