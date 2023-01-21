@@ -255,8 +255,8 @@ def register(request):
                     request, username=username, password=password1)
                 login_process(request, user)
                 return redirect('/')
-
-        return render(request, 'auth/register.html', {'title': 'Register', 'form': form})
+        else:
+            return render(request, 'auth/register.html', {'title': 'Register', 'form': form})
 
     else:
         form = RegisterForm
