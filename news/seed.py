@@ -14,5 +14,5 @@ def forwards_func(apps, schema_editor):
 
 
 def reverse_func(apps, schema_editor):
-    News = apps.get_model('nrsews', 'News')
+    News = apps.get_model('news', 'News')
     News.objects.all().delete()

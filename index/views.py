@@ -13,7 +13,6 @@ def index(request):
     category = Category.objects.all().values()
     locations = Locations.objects.all().values()
     context = {
-
         'title': "Home",
         'news': news,
         'greeting': greeting,

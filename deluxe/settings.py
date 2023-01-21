@@ -15,7 +15,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['deluxe.up.railway.app', '127.0.0.1']
+ALLOWED_HOSTS = ['https://deluxe.up.railway.app/', '127.0.0.1']
 MY_HOST = "https://deluxe.up.railway.app"
 
 # Application definition
@@ -164,8 +164,8 @@ XENDIT_API_KEY = os.getenv("XENDIT_API_KEY")
 TAILWIND_APP_NAME = 'theme'
 # TAILWIND_CSS_PATH = ''
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+# INTERNAL_IPS = [
+#     "127.0.0.1",
+# ]
 
-NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+# NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
