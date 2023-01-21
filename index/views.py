@@ -8,7 +8,7 @@ from django.core.serializers import serialize
 
 
 def index(request):
-    news = News.objects.latest('created_at')
+    news = News.objects.first()
     greeting = Greeting.objects.get()
     category = Category.objects.all().values()
     locations = Locations.objects.all().values()
@@ -22,12 +22,14 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
+
 def about(request):
     context = {
         'title': 'About',
         'about': About.objects.get()
     }
     return render(request, 'about.html', context)
+
 
 def gfkfood(request):
     return render(request, 'gfk-food.html', {'title': 'gfk-food'})
