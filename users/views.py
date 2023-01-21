@@ -245,8 +245,7 @@ def register(request):
             email = request.POST['email']
             phone_number = request.POST['phone_number']
             password1 = request.POST['password1']
-            register = User(
-                fullname=fullname, username=username, email=email, phone_number=phone_number, password=password1)
+            register = User.objects.create(fullname=fullname, username=username, email=email, phone_number=phone_number, password=password1)
             register.save()
 
             if register:
