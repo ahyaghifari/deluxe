@@ -1,1 +1,1 @@
-web: gunicorn deluxe.wsgi
+web: python manage.py migrate users && && python manage.py migrate && gunicorn deluxe.wsgi
