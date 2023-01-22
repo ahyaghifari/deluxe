@@ -116,7 +116,6 @@ def create(request):
 
                 html_content = render_to_string(
                     'mails/newmenu.html', context)
-                text_content = strip_tags(html_content)
                 recepients = []
                 for s in getsubscribers:
                     recepients.append(s.email)

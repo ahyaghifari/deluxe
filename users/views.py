@@ -192,6 +192,16 @@ def login(request):
             if user is not None:
                 login_process(request, user)
 
+                if Order.objects.filter(status__code=101).exists():
+                    getorder = Order.objects.get(status__code=101)
+                    messages.info(
+                        request, f'You have order <a href="/order?status={ getorder.status.status } class="font-semibold">{getorder.status}</a>')
+                if Order.objects.filter(status__code=202).exists():
+                    getorder = Order.objects.get(status__code=202)
+                    messages.info(
+                        request, f'You have order  <a href="/order?status={ getorder.status.status } class="font-semibold">{getorder.status}</a>. Please finish it'
+                    )
+
                 if theme == True:
                     request.session['is_dark'] = True
 

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subscribe | Deluxe</title>
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+    </style>
+  </head>
+  <body style="background-color: rgb(245, 245, 245)">
+    <header
+      style="
+        padding: 3vh 0;
+        text-align: center;
+        border-bottom: 2px dashed lightgray;
+      "
+    >
+      <h1 style="color: rgb(38, 38, 38)">
+        Subscribe | <span style="color: #ec823a">Deluxe</span>
+      </h1>
+    </header>
+
+    <main style="margin-top: 5vh; padding: 1rem">
+      <p>Hi <b>{{ email }}</b>,</p>
+      <p style="margin-top: 3vh">
+        Thank you for subscribe us, so happy you want to know about us in
+        realtime.
+      </p>
+      <p>
+        We gonna send you news about newest things or like release our menu.
+      </p>
+      <p style="margin-top: 3vh">
+        Again thank you for subscribe. See you again -
+        <span style="color: #ec823a"> deluxe</span>
+      </p>
+    </main>
+
+    <footer
+      style="
+        margin-top: 25vh;
+        padding: 1rem;
+        font-size: smaller;
+        border-top: 2px dashed lightgray;
+      "
+    >
+      <p style="margin: 2vh 0">
+        You can always
+        <a href="{{ weblink }}/contact/unsubscribe/" style="color: #ec823a"
+          >Unsubscribe</a
+        >
+        here. Or on our website
+        <span style="color: #ec823a">{{ weblink }}/contact/unsubscribe/</span>
+      </p>
+      <a href="{{ weblink }}" style="margin-top: 5vh; color: #ec823a">Deluxe</a>
+    </footer>
+  </body>
+</html>

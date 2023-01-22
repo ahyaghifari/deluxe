@@ -1,3 +1,4 @@
+from deluxe import settings
 from django.shortcuts import render, redirect
 from .forms import ContactForm, SubscribersForm, UnsubscribeForm
 from django.http import HttpResponseNotFound, JsonResponse
@@ -6,6 +7,8 @@ from manager.filters import ContactFilter
 from deluxe.decorators import superuser_required
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.core.mail import EmailMultiAlternatives, send_mail, EmailMessage
+from django.template.loader import render_to_string
 
 
 def index(request):
@@ -25,18 +28,19 @@ def contacts(request):
     context = {
         'title': "Contacts",
         'contacts': contacts,
-        'contactsfilter' : filter,
-        'context' : "all"
+        'contactsfilter': filter,
+        'context': "all"
     }
     return render(request, 'contacts.html', context)
+
 
 def contactdetail(request, pk):
     contact = Contact.objects.get(pk=pk)
 
     context = {
-        'title' : "Contact Detail",
-        'contact' : contact,
-        'context' : 'detail'
+        'title': "Contact Detail",
+        'contact': contact,
+        'context': 'detail'
     }
     return render(request, 'contacts.html', context)
 
@@ -71,6 +75,18 @@ def subscribe(request):
         if not Subscribers.objects.filter(email=email).exists():
             createsubscriber = Subscribers(email=email, active=True)
             createsubscriber.save()
+
+            subject, from_email = "Subscribe", settings.EMAIL_HOST_USER
+            context = {
+                'email': email,
+                'weblink': settings.MY_HOST
+            }
+            html_content = render_to_string('mails/subscribe.hml', context)
+
+            msg = EmailMessage(subject, html_content, from_email, [email])
+            msg.content_subtype = "html"
+            msg.send()
+
             confirm = "200"
             message = f"Your email success subscribe, check your email {email}"
 
