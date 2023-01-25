@@ -56,7 +56,12 @@ $(document).ready(function () {
                 </div>`)
                    
             });
-                    
+            
+            $.each(menu, function (i, data) { 
+                $('#menu-preview-nav').append(`
+                 <img src="./assets/images/menu/${data.image}" class="menu-prev-navs h-full aspect-[1/1] bg-neutral-900 rounded-full mx-1 border border-neutral-700 p-1 cursor-pointer object-contain active:bg-neutral-600"  data-index="${i}" alt="${data.name}">`)
+            });
+
             owl.owlCarousel('initialize')
         })
     }
@@ -65,10 +70,16 @@ $(document).ready(function () {
 
     $('.menu-navs').on('click', function () {
         $('.owl-item').remove()
+        $('#menu-preview-nav img').remove()
         var category = $(this).children('p').html()
         showMenu(category)
-        // owl.owlCarousel('refresh')
     })
+
+    $('#menu-preview-nav').on('click', '.menu-prev-navs', function() {
+        var i = parseInt($(this).attr('data-index'))
+        owl.trigger('to.owl.carousel', [i, 300])
+    });
+
 
 
 
