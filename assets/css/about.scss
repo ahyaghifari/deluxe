@@ -1,0 +1,13 @@
+#about-tag{
+    background-image: url('https://images.unsplash.com/photo-1567042661848-7161ce446f85?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=465&q=80');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    p{
+        text-shadow: 1px 1px 4px rgb(19, 19, 19);
+    }
+}
