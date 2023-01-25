@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Deluxe</title>
+
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MonteCarlo&family=Montserrat:wght@200;400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- TAILWIND -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        grey: "#EDE6D6",
+                        skin: "#F9C49A",
+                        orange: "#EC823A",
+                        brown: "#7C3C21",
+                        gold: "#FFE15D",
+                        tree: "#2D2514",
+                        myblack : '#141414'
+                    },
+                    fontFamily:{
+                        'monte' : ['MonteCarlo', 'cursive'],
+                        'monts' : ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- OWL CAROUSEL -->
+    <link rel="stylesheet" href="./assets/js/OwlCarousel2-2.3.4/dist/assets/owl.carousel.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/menu.css">
+</head>
+<body class="text-grey font-monts">
+    <nav class="fixed z-[100] bg-myblack top-0 w-full border-b border-skin py-2 px-4 flex justify-between items-center">
+        <a href="" class="font-monte text-skin text-2xl md:text-3xl lg:text-4xl">Deluxe</a>
+
+        <div id="nav-toggle" class="cursor-pointer md:hidden">
+            <div></div>
+            <div></div>
+        </div>
+
+        <div id="nav-list" class="fixed top-[45px] right-0 text-right bg-myblack text-xl md:text-base md:static">
+            <a href="index.html" class="py-1 px-2 hover:bg-grey hover:text-myblack md:hover:bg-transparent md:hover:text-orange">Home</a>
+            <a href="menu.html" class="py-1 px-2 hover:bg-grey hover:text-myblack md:hover:bg-transparent md:hover:text-orange">Menu</a>
+            <a href="about.html" class="py-1 px-2 hover:bg-grey hover:text-myblack md:hover:bg-transparent md:hover:text-orange">About</a>
+            <a href="contact.html" class="py-1 px-2 hover:bg-grey hover:text-myblack md:hover:bg-transparent md:hover:text-orange">Contact Us</a>
+        </div>
+
+    </nav>
+
+    <main class="pt-20 p-4">
+        <div id="menu-header">
+            <h1 class="text-4xl font-monte">Menu</h1>
+        </div>
+        <div id="menu-container" class="mt-5 flex flex-col md:flex-row md:h-[70vh] md:items-center">
+            <div id="menu-preview" class="md:w-7/12 lg:w-8/12">
+                <div id="menu-preview-container" class="owl-carousel border border-skin rounded-md shadow-md">
+                </div>
+            </div>
+
+            <div id="menu-nav" class="mt-12 md:mt-0 flex justify-around flex-wrap md:w-5/12 lg:w-4/12">
+                <div id="menu-navs-bread" class="menu-navs active">
+                    <p>Bread</p>
+                </div>
+                <div id="menu-navs-dessert" class="menu-navs">
+                    <p>Dessert</p>
+                </div>
+                <div id="menu-navs-icecream" class="menu-navs">
+                    <p>Ice Cream</p>
+                </div>
+                <div id="menu-navs-coffe" class="menu-navs">
+                    <p>Coffe</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-44 grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2 border-t border-orange p-3 h-[70vh] md:h-[40vh] md:p-5 md:justify-items-center">
+        <div id="footer-nav" class="flex flex-col lg:text-lg">
+            <a href="index.html" class="my-1 hover:text-orange">Home</a>
+            <a href="menu.html" class="my-1 hover:text-orange">Menu</a>
+            <a href="about.html" class="my-1 hover:text-orange">About</a>
+            <a href="contact.html" class="my-1 hover:text-orange">Contact Us</a>
+        </div>
+        <div id="social-media">
+            <p class="text-orange sm:text-lg lg:text-xl">Touch Us:</p>
+            <div class="mt-2 flex">
+                <a class="mx-1 md:mx-2 group" href="https://facebook.com" target="_blank
+                "><svg viewBox="0 0 512 512" class="fill-grey group-hover:fill-orange w-[20px] md:w-[24px]">
+                    <path
+                        d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z" />
+                </svg></a>
+                <a class="mx-1 md:mx-2 group" href="https://instagram.com" target="_blank
+                "><svg viewBox="0 0 448 512" class="h-[20px] md:h-[25px] fill-grey group-hover:fill-orange">
+                    <path
+                        d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
+                </svg></a>
+                <a class="mx-1 md:mx-2 group" href="https://tiktok.com" target="_blank
+                "><svg viewBox="0 0 448 512" class="h-[20px] md:h-[25px] fill-grey group-hover:fill-orange">
+                    <path
+                        d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z" />
+                </svg></a>
+            </div>
+        </div>
+        <div id="newsletter" class="col-span-2 md:col-span-1 mt-10 md:mt-0">
+            <p class="text-orange sm:text-lg lg:text-xl">Newsletter:</p>
+            <form action="" class="text-sm flex flex-col items-start mt-2">
+                <input type="text" class="bg-transparent border border-grey p-1" placeholder="email@example.com" >
+                <button class="mt-3 disabled:opacity-50 border border-grey p-1" disabled>Subscribe</button>
+            </form>
+        </div>
+        <div id="copyright" class="text-[12px] lg:text-sm col-span-2 md:col-span-3 self-end">
+            <p>&copy; 2023 Deluxe. All Right Reserved</p>
+            <p>Terms of Use |   Privacy Policy</p>
+        </div>
+    </footer>
+
+    <!--SCRIPT-->
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/TextPlugin.min.js"></script>
+
+    <!-- OWL CAROUSEL -->
+    <script src="./assets/js/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
+
+    <!-- SCRIPT -->
+    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+.owl-carousel {
+  height: 45vh !important;
+  background-image: url("https: //images.unsplash.com/photo-1566698629409-787a68fc5724?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80") !important;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-navs {
+  aspect-ratio: 1/1;
+  margin: 1vh 1vw;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  font-size: 0.7rem;
+  background-size: contain;
+  background-position: center;
+  transition: 0.3s all ease-in-out;
+  background-color: rgba(20, 20, 20, 0.623);
+  background-blend-mode: darken;
+  background-repeat: no-repeat;
+}
+
+.menu-navs.active, .menu-navs:hover {
+  transform: scale(101%);
+  background-color: rgba(20, 20, 20, 0.226);
+}
+.menu-navs.active p, .menu-navs:hover p {
+  text-shadow: 1px 1px 2px rgb(20, 20, 20);
+}
+
+#menu-navs-bread {
+  background-image: url("../images/menu-bread.png");
+}
+
+#menu-navs-dessert {
+  background-image: url("../images/menu-dessert.png");
+}
+
+#menu-navs-icecream {
+  background-image: url("../images/menu-icecream.png");
+}
+
+#menu-navs-coffe {
+  background-image: url("../images/menu-coffe.png");
+}
+
+@media (min-width: 640px) {
+  .menu-navs {
+    width: 15%;
+  }
+}
+@media (min-width: 768px) {
+  .owl-carousel {
+    height: 50vh !important;
+  }
+  .menu-navs {
+    width: 35%;
+  }
+}/*# sourceMappingURL=menu.css.map */

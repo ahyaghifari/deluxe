@@ -1,0 +1,79 @@
+{
+    "menu" : {
+        "bread" : [
+            {
+                "name" : "Original",
+                "image" : "original.png",
+                "price" : "Rp. 20.000",
+                "description" : "Come try our delicious original bread, made with the highest quality ingredients and baked to perfection by our skilled pastry chefs."
+            },
+            {
+                "name" : "Baguette",
+                "image" : "baguette.png",
+                "price" : "Rp. 25.000",
+                "description": "A baguette is a long, thin loaf of French bread that is traditionally made from wheat flour, water, yeast, and salt."
+            },
+            {
+                "name" : "Extra Coffe",
+                "image" : "extra-coffe.png",
+                "price" : "Rp. 30.000",
+                "description" : "Our bread coffee is a unique and delicious blend of freshly baked bread and premium coffee beans, creating a one-of-a-kind flavor experience."
+            }
+        ],
+        "dessert" : [
+            {
+                "name" : "Strawberry Cream",
+                "image" : "strawberry-cream.png",
+                "price" : "Rp. 20.000",
+                "description" : "Strawberry cream is a dessert that typically consists of fresh strawberries and whipped cream."
+            },
+            {
+                "name" : "Sweet Waffle",
+                "image" : "sweet-waffle.png",
+                "price" : "Rp. 25.000",
+                "description" : "Sweet waffle is a dessert that is made by cooking a batter made of flour, sugar, eggs, milk, and butter in a waffle iron, which creates a crispy, sweet, and fluffy texture."
+            },
+            {
+                "name" : "Choco Pancake",
+                "image" : "choco-pancake.png",
+                "price" : "Rp. 30.000",
+                "description" : "Choco Pancake is a dessert that is made by adding chocolate chips or cocoa powder to the pancake batter before cooking to give a chocolate flavor and chocolate chunks in the pancakes."
+            }
+        ],
+        "icecream": [
+            {
+                "name" : "Chocolate",
+                "image" : "choco-icecream.png",
+                "price" : "Rp. 20.000",
+                "description" : "Chocolate ice cream is a frozen dessert made from cream, milk, sugar, and cocoa powder, which gives it a rich, creamy chocolate flavor."
+            },
+            {
+                "name" : "Strawberry",
+                "image" : "strawberry-icecream.png",
+                "price" : "Rp. 25.000",
+                "description" : "Strawberry ice cream is a frozen dessert made from cream, milk, sugar, and fresh or frozen strawberries, which gives it a sweet, fruity, and refreshing flavor."
+            },
+            {
+                "name" : "Vanilla",
+                "image" : "vanilla-icecream.png",
+                "price" : "Rp. 30.000",
+                "description": "Vanilla ice cream is a classic frozen dessert made from cream, milk, sugar, and vanilla extract, which gives it a sweet and creamy, versatile flavor that can be paired with various toppings and desserts."
+            }
+        ],
+        "coffe" : [
+            {
+                "name" : "Latte",
+                "image" : "latte.png",
+                "price" : "Rp. 20.000",
+                "description" : "A latte is a coffee drink made by combining steamed milk and espresso, often topped with a thin layer of foam, which results in a creamy, smooth and balanced flavor."
+            },
+            {
+                "name" : "Arabica",
+                "image" : "arabica.png",
+                "price" : "Rp. 25.000",
+                "description" : "Arabica coffee is a type of coffee that is known for its sweeter and more delicate flavor, with lower acidity and higher aroma, it is considered as one of the finest and most sought-after coffee beans in the world."
+            }
+        ]
+        
+    }
+}

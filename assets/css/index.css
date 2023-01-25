@@ -1,0 +1,119 @@
+#greeting {
+  background-image: url("https://images.unsplash.com/photo-1566698629409-787a68fc5724?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menus {
+  margin: 4vh 2vw;
+  cursor: pointer;
+  width: 30%;
+}
+.menus img {
+  height: 80%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.menus .menus-name {
+  color: #EC823A;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.menus .menus-detail {
+  margin-top: 2vh;
+  border-top: 1px solid #EC823A;
+}
+.menus .menus-detail .menus-price {
+  font-size: 0.7rem;
+}
+.menus .menus-stars {
+  display: flex;
+}
+.menus .menus-stars .stars {
+  width: 10px;
+}
+
+.menus:hover {
+  transition: 0.3s all ease-in-out;
+  transform: scale(103%);
+}
+.menus:hover img {
+  animation: homemenus 3s reverse infinite;
+}
+
+#community div {
+  background-image: url("https://images.unsplash.com/photo-1628358645818-f357f71cb403?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=423&q=80");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  border-radius: 0.3rem;
+}
+
+#locations div {
+  background-image: url("https://images.unsplash.com/photo-1570038283490-0c2b8fe95b2b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
+  background-size: cover;
+  background-attachment: fixed;
+  border-radius: 0.3rem;
+}
+
+@-webkit-keyframes homemenus {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes homemenus {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@media (min-width: 640px) {
+  .menus {
+    width: 30%;
+  }
+  .menus .menus-name {
+    font-size: 1.2rem;
+  }
+  .menus .menus-stars .stars {
+    width: 15px;
+  }
+}
+@media (min-width: 768px) {
+  .menus {
+    width: 25%;
+  }
+  .menus .menus-name {
+    font-size: 1.2rem;
+  }
+  .menus .menus-stars .stars {
+    width: 20px;
+  }
+  .menus .menus-detail .menus-price {
+    font-size: 0.8rem;
+  }
+  #community div, #locations div {
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  #locations div {
+    width: 100%;
+    background-color: #EC823A;
+    background-size: 100% 100vh;
+  }
+}
+@media (min-width: 1024px) {
+  .menus {
+    width: 16%;
+  }
+}/*# sourceMappingURL=index.css.map */
