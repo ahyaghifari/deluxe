@@ -10,17 +10,18 @@ $(document).ready(function () {
             autoplayTimeout: 6000,
             autoplayHoverPause: true,
         });
-    
-    $('#menu-next').on('click', function () {
-        owl.trigger('next.owl.carousel')
-    })
-    $('#menu-prev').on('click', function () {
-        owl.trigger('prev.owl.carousel')
-    })
 
     $('.menu-navs').on('click', function () {
         $('.menu-navs').removeClass('active')
         $(this).addClass('active')
+    })
+
+    $('#menu-preview-suggest').delay(10000).fadeOut(1000, function () {
+        $(this).remove()
+    })
+
+    owl.on('dragged.owl.carousel', function () {
+        $('#menu-preview-suggest').remove()
     })
 
     

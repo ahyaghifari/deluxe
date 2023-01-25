@@ -74,15 +74,15 @@
             <form action="" class="grid grid-cols-2 grid-rows-auto gap-4">
                 <div class="contact-forms">
                     <label for="name">Name : <span class="text-red-400">*</span></label>
-                    <input type="text" placeholder="Your name..." id="name">
+                    <input type="text" placeholder="Your name..." id="name" required>
                 </div>
                 <div class="contact-forms">
                     <label for="email">Email : <span class="text-red-400">*</span></label>
-                    <input type="email" placeholder="Your email..." id="email">
+                    <input type="email" placeholder="Your email..." id="email" required>
                 </div>
-                <div class="contact-forms col-span-2">
+                <div class="contact-forms col-  span-2">
                     <label for="message">Message : <span class="text-red-400">*</span></label>
-                    <textarea name="" id="" cols="30" rows="10" placeholder="Your message..."></textarea>
+                    <textarea name="message" id="message" cols="30" rows="10" placeholder="Your message..." required></textarea>
                 </div>
                 <div class="contact-forms col-span-2">
                     <button disabled="disabled" class="bg-neutral-600 p-2 rounded-md disabled:opacity-50 hover:bg-orange hover:text-neutral-800">Send</button>
@@ -92,7 +92,7 @@
     </main>
 
     <footer
-        class="mt-96 grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2 border-t border-orange p-3 h-[70vh] md:h-[60vh] md:p-5 md:justify-items-center">
+        class="mt-96 grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2 border-t border-orange p-3 h-[70vh] md:h-[40vh] md:p-5 md:justify-items-center">
         <div id="footer-nav" class="flex flex-col lg:text-lg">
             <a href="index.html" class="my-1 hover:text-orange">Home</a>
             <a href="menu.html" class="my-1 hover:text-orange">Menu</a>

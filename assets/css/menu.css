@@ -55,6 +55,41 @@
   background-image: url("../images/menu-coffe.png");
 }
 
+#menu-preview-suggest {
+  transform: translateX(0);
+  -webkit-animation: menusuggestanim 5s infinite;
+          animation: menusuggestanim 5s infinite;
+}
+
+@-webkit-keyframes menusuggestanim {
+  25% {
+    transform: translateX(50px);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(-50px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes menusuggestanim {
+  25% {
+    transform: translateX(50px);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(-50px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
 @media (min-width: 640px) {
   .menu-navs {
     width: 15%;

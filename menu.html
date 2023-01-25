@@ -65,13 +65,16 @@
 
     <main class="pt-20 p-4">
         <div id="menu-header">
-            <h1 class="text-5xl font-monte">Menu</h1>
+            <h1 class="text-5xl font-monte md:text-6xl lg:text-7xl">Menu</h1>
         </div>
         <div id="menu-container" class="mt-5 flex flex-col md:flex-row md:h-[70vh] md:items-center">
-            <div id="menu-preview" class="md:w-7/12 lg:w-8/12">
+            <div id="menu-preview" class="md:w-7/12 lg:w-8/12 relative">
                 <div id="menu-preview-container" class="owl-carousel border border-skin rounded-md shadow-md">
                 </div>
                 <div id="menu-preview-nav" class="h-[8vh] sm:h-[10vh] md:h-[11vh] flex justify-center p-2 z-[100]">
+                </div>
+                <div id="menu-preview-suggest" class="absolute top-1/2 z-[80] left-1/2">
+                <svg viewBox="0 0 50 50" class="w-[30px] fill-skin"><path d="M5.5 13.1q-.65 0-1.075-.425Q4 12.25 4 11.6V4.5q0-.5.35-.85t.9-.35q.55 0 .875.325.325.325.325.875v3.9q3.65-3.15 8.125-4.775Q19.05 2 23.9 2t9.375 1.625Q37.8 5.25 41.5 8.4V4.55q0-.55.35-.9t.9-.35q.55 0 .9.35t.35.9v7.05q0 .65-.425 1.075-.425.425-1.075.425h-6.85q-.5 0-.85-.35t-.35-.9q0-.55.35-.875.35-.325.9-.325h4.75q-3.45-3-7.7-4.7-4.25-1.7-8.85-1.7-4.55 0-8.75 1.7t-7.65 4.7h4.8q.5 0 .85.325t.35.875q0 .55-.325.9t-.875.35ZM22 46q-.85 0-1.6-.325-.75-.325-1.3-.875l-7.55-8q-.65-.7-.65-1.6 0-.9.5-1.5.55-.65 1.3-.85.75-.2 1.6 0L20 34.1V13q0-1.3.85-2.15Q21.7 10 23 10q1.3 0 2.15.85.85.85.85 2.15v12h1.8q.55 0 .95.075.4.075.85.325l8.15 4.1q1.2.6 1.8 1.75.6 1.15.4 2.45l-1.3 9q-.25 1.45-1.4 2.375t-2.6.925Z"/></svg>
                 </div>
             </div>
 
@@ -92,7 +95,7 @@
         </div>
     </main>
 
-    <footer class="mt-44 grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2 border-t border-orange p-3 h-[70vh] md:h-[60vh] md:p-5 md:justify-items-center">
+    <footer class="mt-44 grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2 border-t border-orange p-3 h-[70vh] md:h-[40vh] md:p-5 md:justify-items-center">
         <div id="footer-nav" class="flex flex-col lg:text-lg">
             <a href="index.html" class="my-1 hover:text-orange">Home</a>
             <a href="menu.html" class="my-1 hover:text-orange">Menu</a>
