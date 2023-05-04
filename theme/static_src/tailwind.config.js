@@ -13,14 +13,17 @@ module.exports = {
         '../../**/templates/**/*.html',
     ],
     theme: {
-        extend: {  
+        extend: {
             colors: {
-              grey: "#EDE6D6",
-              skin: "#F9C49A",
-              orange: "#EC823A",
-              brown: "#7C3C21",
-              gold: "#FFE15D",
-              tree: "#2D2514",
+                grey: "#EDE6D6",
+                skin: "#F9C49A",
+                orange: "#EC823A",
+                brown: "#7C3C21",
+                gold: "#FFE15D",
+                tree: "#2D2514",
+            },
+            fontFamily: {
+                'alata': ['Alata', 'sans-serif'],
             },
         },
     },

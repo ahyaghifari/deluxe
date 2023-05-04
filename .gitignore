@@ -7,3 +7,8 @@ venv/
 *.pyc
 db.sqlite3
 fixtures/
+
+include/
+Lib/
+Scripts/
+pyvenv.cfg
